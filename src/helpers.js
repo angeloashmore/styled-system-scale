@@ -1,9 +1,11 @@
-// Generator function that returns an increasing modular scale value on each `next` call.
+// Generator function that returns an increasing modular scale value on each
+// `next` call.
 export function* modularScale(i = 0, r = Math.sqrt(2), p = 10) {
   while (true) yield Math.round(p * Math.pow(r, i++)) / p
 }
 
-// Generator function that returns an increasing linear scale value on each `next` call.
+// Generator function that returns an increasing linear scale value on each
+// `next` call.
 export function* linearScale(i = 0, r = 1, p = 10) {
   while (true) yield Math.round(p * i++ * r) / p
 }
