@@ -8,9 +8,9 @@ import { scale } from 'styled-system-scale'
 scale(count, gen, opts)
 ```
 
-Returns an array of values corresponding to the specified scale.
+Returns an array of values corresponding to a scale.
 
-- **`count`** (Default: 0) - Cardinality of the resulting array.
+- **`count`** (Default: 0) - Length of the resulting array.
 - **`gen`** (Default: `linearScale()`) - Generator function that returns
   sequenced scale values.
 - **`opts`** - Options to adjust the scale.
