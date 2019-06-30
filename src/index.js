@@ -1,5 +1,7 @@
 import { get } from 'styled-system'
 
+export { scale, linearScale, linearRatio, modularScale } from './helpers'
+
 const firstLeft = (arr, idx) => {
   if (idx >= arr.length) idx = arr.length - 1
 
@@ -55,45 +57,3 @@ export const createStyleScaleFunction = ({
     return result
   }
 }
-
-// // Returns a list of values from a modular scale using the provided base value.
-// export const scaled = (
-//   base = 0,
-//   { ratio, count = 5, max = Infinity, floating = false, mask = [] } = {},
-// ) =>
-//   compose(
-//     !isEmpty(mask)
-//       ? mapIndexed(([idx, v]) => {
-//           if (idx >= mask.length) return v
-//           if (mask[idx] === true) return v
-//           return mask[idx]
-//         })
-//       : identity,
-//     floating ? identity : map(ceil),
-//     map(v => Math.min(ms(v, ratio), max)),
-//     range(__, base + count),
-//   )(base)
-
-// export const parseScaleProp = (prop, theme, defaultOpts) => {
-//   prop = castArray(prop)
-
-//   const propScales = castArray(prop[0])
-//   const propOpts = prop[1] || {}
-//   const breakpointsCount = theme.breakpoints.length
-
-//   return propScales.map((scale, index) => {
-//     if (isNull(scale)) return null
-//     if (!has([fontSizeScaleRatios, scale], theme)) return scale
-
-//     const { ratio, min, max } = get(['fontSizeScaleRatios', scale], theme)
-
-//     return scaled(min, {
-//       ratio,
-//       min,
-//       max,
-//       count: breakpointsCount,
-//       ...defaultOpts,
-//       ...propOpts,
-//     })[index]
-//   })
-// }

@@ -1,11 +1,14 @@
 import { createStyleScaleFunction } from './index'
+import { scale, linearScale } from './helpers'
 
 const theme = {
   breakpoints: ['1rem', '2rem', '3rem'],
   fontSizeScales: {
-    medium: [0, 1, 2, 3],
-    large: [10, 11, 12, 13],
+    medium: scale(4, linearScale()),
+    large: scale(4, linearScale(10)),
   },
+  fontSizes: scale(10, linearScale()),
+  space: scale(10, linearScale(0, 0.25, 100)),
 }
 
 const fontSizeScale = createStyleScaleFunction({
