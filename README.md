@@ -17,4 +17,5 @@ Returns an array of values corresponding to the specified scale.
   - **`min`** (Default: `-Infinity`) - Minimum value for any value in the scale.
   - **`max`** (Default: `Infinity`) - Maximum value for any value in the scale.
   - **`transform`** (Default: `identity`) - Function used to transform a value
-    returned by `gen`. E.g. `Math.ceil` or `Math.floor`.
+    returned by `gen`. Provided three arguments: `value`, `index`, and `count`.
+    E.g. `Math.ceil` or `Math.floor`.

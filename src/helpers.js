@@ -23,7 +23,9 @@ export const scale = (
   const arr = []
 
   for (let i = 0; i < count; i++)
-    arr.push(Math.min(max, Math.max(min, transform(gen.next().value))))
+    arr.push(
+      Math.min(max, Math.max(min, transform(gen.next().value, i, count))),
+    )
 
   return arr
 }
