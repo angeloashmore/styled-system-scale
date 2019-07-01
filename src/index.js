@@ -1,5 +1,3 @@
-import { get } from 'styled-system'
-
 export { scale, linearScale, linearRatio, modularScale } from './helpers'
 
 const firstLeft = (arr, idx) => {
@@ -18,6 +16,7 @@ export const createStyleScaleFunction = ({
   property,
   scale: scaleKey,
   defaultScale = [],
+  // system,
 }) => {
   properties = properties || [property]
 
@@ -57,3 +56,52 @@ export const createStyleScaleFunction = ({
     return result
   }
 }
+
+export const createParser = config => {
+  const cache = {}
+  const parse = props => {
+    for (const key in props) {
+      if (!config[key]) continue
+
+      const sx = config[key]
+      const raw = props[key]
+      const scale = get(props.theme, sx.scale, sx.defaults)
+      cache.breakpoints =
+        cache.breakpoints ||
+        get(props.theme, 'breakpoints', defaults.breakpoints)
+
+      const systemResult = []
+
+      // breakpoints.length + 1 is used since we need the base value (i.e. the
+      // value used below the first breakpoint).
+      for (let i = 0; i < cache.breakpoints.length + 1; i++) {
+        const s = firstLeft(raw, i)
+        const v = get(scale, s + '.' + i, s)
+
+        systemResult[i] = v
+      }
+
+      // for (let i = 0; i < sx.properties)
+    }
+  }
+
+  parse.config = config
+  parse.propNames = Object.keys(config)
+  parse.cache = cache
+
+  return parse
+}
+
+export const composeScales = (...parsers) => {
+  let config = {}
+  parsers.forEach(parser => {
+    if (!parser || !parser.config) return
+    assign(config, parser.config)
+  })
+  const parser = createParser(config)
+
+  return parser
+}
+
+export const scaled = (scaleParser, systemParser) => props =>
+  systemParser(scaleParser(props))

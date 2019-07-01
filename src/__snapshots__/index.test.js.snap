@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`integration provides responsive values to style prop 1`] = `
+Array [
+  <div
+    className="css-0"
+    fontSizeScale={
+      Array [
+        "medium",
+        null,
+        "large",
+      ]
+    }
+  />,
+  ",",
+]
+`;
