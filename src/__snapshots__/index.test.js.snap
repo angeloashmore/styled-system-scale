@@ -1,17 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`integration provides responsive values to style prop 1`] = `
-Array [
-  <div
-    className="css-0"
-    fontSizeScale={
-      Array [
-        "medium",
-        null,
-        "large",
-      ]
-    }
-  />,
-  ",",
-]
+exports[`provides responsive values to style prop 1`] = `
+.emotion-0 {
+  font-size: 0;
+  padding-top: 0;
+  padding-left: 2.5px;
+  padding-right: 2.5px;
+  padding-bottom: 0.5px;
+}
+
+@media screen and (min-width:1rem) {
+  .emotion-0 {
+    font-size: 1px;
+    padding-top: 0.25px;
+    padding-left: 2.75px;
+    padding-right: 2.75px;
+  }
+}
+
+@media screen and (min-width:2rem) {
+  .emotion-0 {
+    font-size: 12px;
+    padding-top: 0.5px;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+}
+
+@media screen and (min-width:3rem) {
+  .emotion-0 {
+    font-size: 13px;
+    padding-top: 0.75px;
+    padding-left: 3.25px;
+    padding-right: 3.25px;
+  }
+}
+
+<div
+  className="emotion-0"
+/>
 `;

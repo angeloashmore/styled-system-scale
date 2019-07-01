@@ -3,74 +3,50 @@ import renderer from 'react-test-renderer'
 import serializer from 'jest-emotion'
 import styled from '@emotion/styled'
 import { ThemeProvider } from 'emotion-theming'
-import { compose, typography, color } from 'styled-system'
+import { compose, typography, space } from 'styled-system'
 
-import { createStyleScaleFunction } from './index'
+import { interceptScales, composeScales } from './index'
+import { typographyScales } from './presets/typography'
+import { spaceScales } from './presets/space'
+
 import { scale, linearScale } from './helpers'
 
 expect.addSnapshotSerializer(serializer)
 
 const theme = {
   breakpoints: ['1rem', '2rem', '3rem'],
+  fontSizes: scale(10, linearScale()),
   fontSizeScales: {
     medium: scale(4, linearScale()),
     large: scale(4, linearScale(10)),
   },
-  fontSizes: scale(10, linearScale()),
-  space: scale(10, linearScale(0, 0.25, 100)),
+  space: scale(20, linearScale(0, 0.25, 100)),
+  spaceScales: {
+    medium: scale(4, linearScale()),
+    large: scale(4, linearScale(10)),
+  },
 }
 
-const fontSizeScale = createStyleScaleFunction({
-  key: 'fontSizeScale',
-  property: 'fontSize',
-  scale: 'fontSizeScales',
-})
-
-describe('createStyleScaleFunction', () => {
-  test('returns a style scale function', () => {
-    const systemProps = fontSizeScale({
-      theme,
-      fontSizeScale: 'medium',
-    })
-
-    expect(systemProps).toEqual({ fontSize: [0, 1, 2, 3] })
-  })
-
-  test('supports responsive scales', () => {
-    const systemProps = fontSizeScale({
-      theme,
-      fontSizeScale: ['medium', null, 'large'],
-    })
-
-    expect(systemProps).toEqual({ fontSize: [0, 1, 12, 13] })
-  })
-})
-
-describe('integration', () => {
-  // const CompBase = styled('div', { shouldForwardProp: () => true })(fontSize)
-  // const Comp = props => {
-  //   const scaledProps = fontSizeScale({ theme, ...props })
-
-  //   return <CompBase {...scaledProps} {...props} />
-  // }
-
-  const Comp = styled('div', { shouldForwardProp: () => true })(
-    scaled(
-      composeScales(fontSizeScale, spaceScale),
-      compose(
-        typography,
-        space,
-      ),
+const Comp = styled('div')(
+  interceptScales(composeScales(typographyScales, spaceScales))(
+    compose(
+      typography,
+      space,
     ),
+  ),
+)
+
+test('provides responsive values to style prop', () => {
+  const tree = renderer.create(
+    <ThemeProvider theme={theme}>
+      <Comp
+        fontSizeScale={['medium', null, 'large']}
+        pb={2}
+        ptScale="medium"
+        pxScale="large"
+      />
+    </ThemeProvider>,
   )
 
-  test('provides responsive values to style prop', () => {
-    const tree = renderer.create(
-      <ThemeProvider theme={theme}>
-        <Comp fontSizeScale={['medium', null, 'large']} />,
-      </ThemeProvider>,
-    )
-
-    expect(tree).toMatchSnapshot()
-  })
+  expect(tree).toMatchSnapshot()
 })

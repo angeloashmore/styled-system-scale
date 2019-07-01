@@ -1,4 +1,8 @@
+import { get } from 'styled-system'
+
 export { scale, linearScale, linearRatio, modularScale } from './helpers'
+
+const castArray = x => (Array.isArray(x) ? x : [x])
 
 const firstLeft = (arr, idx) => {
   if (idx >= arr.length) idx = arr.length - 1
@@ -8,100 +12,51 @@ const firstLeft = (arr, idx) => {
   return arr[idx]
 }
 
-const castArray = x => (Array.isArray(x) ? x : [x])
+const defaults = { breakpoints: [40, 52, 64].map(x => x + 'rem') }
 
-export const createStyleScaleFunction = ({
-  key,
-  properties,
-  property,
-  scale: scaleKey,
-  defaultScale = [],
-  // system,
-}) => {
-  properties = properties || [property]
-
-  return props => {
-    if (!props.hasOwnProperty(key)) return {}
-
-    // TODO: Support named breakpoints via objects. This only supports array
-    // responsive styles.
-
-    // TODO: Support default breakpoints from styled-system.
-
-    const theme = props.theme || {}
-    const scale = theme[scaleKey] || defaultScale
-    const breakpoints = theme.breakpoints || []
-
-    const prop = castArray(props[key])
-    // const propScales = castArray(prop[0])
-    // const propOpts = prop[1] || {}
-
-    const systemResult = []
-
-    // breakpoints.length + 1 is used since we need the base value (i.e. the
-    // value used below the first breakpoint).
-    for (let i = 0; i < breakpoints.length + 1; i++) {
-      const s = firstLeft(prop, i)
-      const v = scale[s][i]
-
-      if (v === undefined) systemResult[i] = s
-      else systemResult[i] = v
-    }
-
-    const result = {}
-
-    for (let i = 0; i < properties.length; i++)
-      result[properties[i]] = systemResult
-
-    return result
-  }
-}
-
-export const createParser = config => {
+export const scales = configs => {
   const cache = {}
   const parse = props => {
-    for (const key in props) {
-      if (!config[key]) continue
+    cache.breakpoints =
+      cache.breakpoints || get(props.theme, 'breakpoints', defaults.breakpoints)
+    const systemProps = {}
 
-      const sx = config[key]
-      const raw = props[key]
-      const scale = get(props.theme, sx.scale, sx.defaults)
-      cache.breakpoints =
-        cache.breakpoints ||
-        get(props.theme, 'breakpoints', defaults.breakpoints)
+    for (const key in configs) {
+      const prop = castArray(props[key])
+      const config = configs[key]
+      const systemProp = config.systemProp
+      const scale = get(props.theme, config.scale, config.defaultScale)
 
-      const systemResult = []
+      const result = []
 
-      // breakpoints.length + 1 is used since we need the base value (i.e. the
-      // value used below the first breakpoint).
       for (let i = 0; i < cache.breakpoints.length + 1; i++) {
-        const s = firstLeft(raw, i)
-        const v = get(scale, s + '.' + i, s)
+        const s = firstLeft(prop, i)
 
-        systemResult[i] = v
+        if (s === undefined) continue
+
+        result[i] = scale[s][i]
       }
 
-      // for (let i = 0; i < sx.properties)
+      systemProps[systemProp] = result
     }
+
+    return { ...systemProps, ...props }
   }
 
-  parse.config = config
-  parse.propNames = Object.keys(config)
+  parse.configs = configs
   parse.cache = cache
 
   return parse
 }
 
 export const composeScales = (...parsers) => {
-  let config = {}
-  parsers.forEach(parser => {
-    if (!parser || !parser.config) return
-    assign(config, parser.config)
-  })
-  const parser = createParser(config)
+  const configs = {}
 
-  return parser
+  for (let i = 0; i < parsers.length; i++)
+    Object.assign(configs, parsers[i].configs)
+
+  return scales(configs)
 }
 
-export const scaled = (scaleParser, systemParser) => props =>
+export const interceptScales = scaleParser => systemParser => props =>
   systemParser(scaleParser(props))
