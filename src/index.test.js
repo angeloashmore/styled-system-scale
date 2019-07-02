@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 import { ThemeProvider } from 'emotion-theming'
 import { compose, typography, space } from 'styled-system'
 
-import { interceptScales, composeScales } from './index'
+import { interceptScales, composeScales } from './core'
 import { typographyScales } from './presets/typography'
 import { spaceScales } from './presets/space'
 
