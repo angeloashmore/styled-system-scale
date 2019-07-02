@@ -1,4 +1,4 @@
-import { scales } from '../index'
+import { scales } from '../core'
 
 const configs = {
   fontSizeScale: {
