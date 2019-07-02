@@ -10,13 +10,13 @@ const theme = {
   breakpoints: [40, 52, 64].map(x => x + 'rem'),
   space: scale(12, modularScale()),
   spaceScales: {
-    small: scale(4, linearScale(0)),
+    small: scale(4, linearScale()),
     base: scale(4, linearScale(4)),
     large: scale(4, linearScale(8)),
   },
   fontSizes: scale(10, modularScale()),
   fontSizeScales: {
-    small: scale(4, linearScale(0)),
+    small: scale(4, linearScale()),
     base: scale(4, linearScale(1)),
     large: scale(4, linearScale(4)),
   },
