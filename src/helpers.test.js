@@ -65,12 +65,12 @@ describe('linearRatio', () => {
 describe('modularScale', () => {
   test('returns a modular scale', () => {
     const result = scale(4, modularScale())
-    expect(result).toEqual([1, 1.4, 2, 2.8])
+    expect(result).toEqual([1, 2, 4, 8])
   })
 
   test('allows setting the initial value of the scale', () => {
     const result = scale(4, modularScale(10))
-    expect(result).toEqual([32, 45.3, 64, 90.5])
+    expect(result).toEqual([1024, 2048, 4096, 8192])
   })
 
   test('allows setting the ratio', () => {

@@ -27,8 +27,10 @@ const theme = {
   },
 }
 
+const scales = composeScales(typographyScales, spaceScales)
+
 const Comp = styled('div')(
-  interceptScales(composeScales(typographyScales, spaceScales))(
+  interceptScales(scales)(
     compose(
       typography,
       space,
