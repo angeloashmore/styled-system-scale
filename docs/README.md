@@ -14,6 +14,6 @@ TODO
 # Docs
 
 - TODO: Getting Started
-- [Helpers API](./helpers.md)
+- [Helpers API](./docs/helpers.md)
 
 [styled-system]: https://github.com/styled-system/styled-system
