@@ -40,8 +40,8 @@ describe('linearScale', () => {
   })
 
   test('allows setting the initial value of the scale', () => {
-    const result = scale(4, linearScale(10))
-    expect(result).toEqual([10, 11, 12, 13])
+    const result = scale(4, linearScale(10.5, 0.25))
+    expect(result).toEqual([10.5, 10.8, 11, 11.3])
   })
 
   test('allows setting the ratio', () => {
@@ -75,7 +75,7 @@ describe('modularScale', () => {
 
   test('allows setting the initial value of the scale', () => {
     const result = scale(4, modularScale(10))
-    expect(result).toEqual([1024, 2048, 4096, 8192])
+    expect(result).toEqual([11, 12, 14, 18])
   })
 
   test('allows setting the ratio', () => {
