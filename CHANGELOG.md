@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/angeloashmore/styled-system-scale/compare/v0.1.0...v0.1.1) (2019-07-02)
+
+
+### Bug Fixes
+
+* export all functions ([0dc6a83](https://github.com/angeloashmore/styled-system-scale/commit/0dc6a83))
+
+
+### Tests
+
+* update imports ([cfdff68](https://github.com/angeloashmore/styled-system-scale/commit/cfdff68))
+
+
+
 ## 0.1.0 (2019-07-02)
 
 
