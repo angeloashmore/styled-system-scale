@@ -26,6 +26,11 @@ describe('scale', () => {
     const minMaxResult = scale(4, linearScale(), { min: 1, max: 2 })
     expect(minMaxResult).toEqual([1, 1, 2, 2])
   })
+
+  test('allows setting a unit for all values', () => {
+    const result = scale(4, linearScale(), { unit: 'rem' })
+    expect(result).toEqual(['0rem', '1rem', '2rem', '3rem'])
+  })
 })
 
 describe('linearScale', () => {

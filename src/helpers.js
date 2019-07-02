@@ -18,13 +18,14 @@ export const linearRatio = (min, max, steps = 1) => (max - min) / steps
 export const scale = (
   count = 0,
   gen = linearScale(),
-  { min = -Infinity, max = Infinity, transform = x => x } = {},
+  { unit = 0, min = -Infinity, max = Infinity, transform = x => x } = {},
 ) => {
   const arr = []
 
   for (let i = 0; i < count; i++)
     arr.push(
-      Math.min(max, Math.max(min, transform(gen.next().value, i, count))),
+      Math.min(max, Math.max(min, transform(gen.next().value, i, count))) +
+        unit,
     )
 
   return arr
