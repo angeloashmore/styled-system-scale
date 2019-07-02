@@ -10,9 +10,8 @@ import { scale, modularScale } from 'styled-system-scale'
 
 export const theme = {
   space: scale(10, modularScale(0, 2)),
+  // => [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
 }
-
-// theme.space = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
 ```
 
 `scale` takes the following arguments:
