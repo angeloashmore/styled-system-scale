@@ -65,5 +65,8 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "dependencies": {
+    "polished": "^3.4.1"
   }
 }
