@@ -15,13 +15,13 @@ expect.addSnapshotSerializer(serializer)
 
 const theme = {
   breakpoints: linearScale('40rem', '64rem', { count: 3 }),
-  space: linearScale(0, 10, { count: 41 }),
+  space: linearScale('0rem', '20rem', { ratio: 0.25 }),
   spaceScales: {
     small: linearScale(1, 4),
     base: linearScale(4, 7),
     large: linearScale(8, 11),
   },
-  fontSizes: linearScale('1rem', '6rem', { count: 24, precision: 100 }),
+  fontSizes: linearScale('1rem', '6rem', { ratio: 0.25 }),
   fontSizeScales: {
     small: linearScale(0, 3),
     base: linearScale(1, 4),
@@ -44,13 +44,13 @@ test('theme', () => {
   expect(theme).toMatchSnapshot()
 })
 
-test.skip('provides responsive values to style prop', () => {
+test('provides responsive values to style prop', () => {
   const tree = renderer.create(
     <ThemeProvider theme={theme}>
       <Comp
-        fontSizeScale={['medium', null, 'large']}
+        fontSizeScale={['base', null, 'large']}
         pb={2}
-        ptScale="medium"
+        ptScale="base"
         pxScale="large"
       />
     </ThemeProvider>,

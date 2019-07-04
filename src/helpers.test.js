@@ -47,7 +47,7 @@ describe('linearScaleGen', () => {
 
   test('allows setting the initial value of the scale', () => {
     const result = scale(4, linearScaleGen(10.5, 0.25))
-    expect(result).toEqual([10.5, 10.8, 11, 11.3])
+    expect(result).toEqual([10.5, 10.75, 11, 11.25])
   })
 
   test('allows setting the ratio', () => {
@@ -106,6 +106,17 @@ describe('linearScale', () => {
     expect(result).toEqual([4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8])
   })
 
+  test('allows setting a ratio', () => {
+    const result = linearScale(4, 8, { ratio: 2 })
+    expect(result).toEqual([4, 6, 8])
+  })
+
+  test('throws if count and ratio are provided', () => {
+    expect(() => linearScale(4, 8, { count: 4, ratio: 2 })).toThrow(
+      /count and ratio/i,
+    )
+  })
+
   test('allows providing units', () => {
     const result = linearScale('4rem', '8rem')
     expect(result).toEqual(['4rem', '5rem', '6rem', '7rem', '8rem'])
@@ -116,8 +127,8 @@ describe('linearScale', () => {
   })
 
   test('passes options to scale', () => {
-    const result = linearScale(4, 8, { unit: 'rem' })
-    expect(result).toEqual(['4rem', '5rem', '6rem', '7rem', '8rem'])
+    const result = linearScale(4, 8, { unit: 'rem', min: 5, max: 7 })
+    expect(result).toEqual(['5rem', '5rem', '6rem', '7rem', '7rem'])
   })
 
   test('passing unit option overrides min and max units', () => {

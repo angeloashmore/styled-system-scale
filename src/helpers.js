@@ -2,14 +2,14 @@ import { stripUnit } from 'polished'
 
 // Generator function that returns an increasing modular scale value on each
 // `next` call.
-export function* modularScaleGen(i = 0, r = 2, p = 10) {
+export function* modularScaleGen(i = 0, r = 2, p = 100) {
   let j = 0
   while (true) yield Math.round(p * Math.pow(r, j++)) / p + i
 }
 
 // Generator function that returns an increasing linear scale value on each
 // `next` call.
-export function* linearScaleGen(i = 0, r = 1, p = 10) {
+export function* linearScaleGen(i = 0, r = 1, p = 100) {
   let j = 0
   while (true) yield Math.round(p * j++ * r) / p + i
 }
@@ -38,19 +38,31 @@ export const scale = (
 export const linearScale = (
   min,
   max,
-  { count, precision, unit, ...opts } = {},
+  { count, ratio, precision, unit, ...opts } = {},
 ) => {
+  if (count && ratio)
+    throw new Error(
+      'Count and ratio were provided, but only one can be defined.',
+    )
+
   const [minV, minU] = stripUnit(min, true)
   const [maxV, maxU] = stripUnit(max, true)
 
   if (!unit && minU !== maxU)
     throw new Error('Units of min and max do not match.')
 
-  count = count || maxV - minV + 1
   unit = unit || minU
 
-  const r = linearRatio(minV, maxV, count - 1)
-  const gen = linearScaleGen(minV, r, precision)
+  if (count) {
+    ratio = linearRatio(minV, maxV, count - 1)
+  } else if (ratio) {
+    count = (maxV - minV) / ratio + 1
+  } else {
+    count = maxV - minV + 1
+    ratio = 1
+  }
 
-  return scale(count, gen, { unit, ...opts })
+  const gen = linearScaleGen(minV, ratio, precision)
+
+  return scale(count, gen, { unit, min: minV, max: maxV, ...opts })
 }
