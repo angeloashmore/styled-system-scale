@@ -9,7 +9,7 @@ import { interceptScales, composeScales } from './core'
 import { typographyScales } from './presets/typography'
 import { spaceScales } from './presets/space'
 
-import { linearScale, scale, linearScaleGen } from './helpers'
+import { linearScale } from './helpers'
 
 expect.addSnapshotSerializer(serializer)
 
