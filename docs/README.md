@@ -22,12 +22,15 @@ import {
 } from 'styled-system-scale'
 
 const scales = composeScales(spaceScales, typographyScales)
-const styles = compose(
-  space,
-  typography,
-)
 
-const Box = styled.div(interceptScales(scales)(styles))
+const Box = styled.div(
+  interceptScales(scales)(
+    compose(
+      space,
+      typography,
+    ),
+  ),
+)
 ```
 
 Styled System Scale requires providing "scales" for each scale prop. For
