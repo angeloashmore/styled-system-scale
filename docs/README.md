@@ -47,9 +47,9 @@ const theme = {
   },
   fontSizes: linearScale('0rem', '10rem', { ratio: 0.25 }),
   fontSizeScales: {
-    small: linearScale(3, 3),
+    small: linearScale(3, 4),
     base: linearScale(4, 7),
-    large: linearScale(8, 11),
+    large: linearScale(6, 9),
   },
 }
 ```
