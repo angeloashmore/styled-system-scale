@@ -85,9 +85,9 @@ linearScale(min, max, opts = { count, ratio, precision, unit, min, max, transfor
   - `unit`: Unit to append to values in the scale. E.g. `rem`.
   - `min`: Minimum value for any value in the scale.
   - `max`: Maximum value for any value in the scale.
-  - `transform`: Function used to transform a value returned by `gen`. Provided
-    three arguments: `value`, `index`, and `count`. E.g. `Math.ceil` or
-    `Math.floor`.
+  - `transform`: Function used to transform a value returned by the scale.
+    Provided three arguments: `value` without a unit, `index`, and `count`. E.g.
+    `Math.ceil` or `Math.floor`.
 
 ## Scale helper
 
