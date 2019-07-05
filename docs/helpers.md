@@ -28,13 +28,13 @@ This results in a theme like the following:
 ```json
 {
   "breakpoints": ["40rem", "52rem", "64rem"],
-  "space": ["0rem", "0.25rem", "0.5rem", "0.75rem", "1rem", "1.25rem", ..., "10rem"],
+  "space": ["0rem", "0.25rem", "0.5rem", "0.75rem", "...", "10rem"],
   "spaceScales": {
     "small": [0, 1, 2, 3],
     "base": [2, 3, 4, 5],
     "large": [4, 5, 6, 7]
   },
-  "fontSizes": ["0rem", "0.25rem", "0.5rem", "0.75rem", "1rem", "1.25rem", ..., "10rem"],
+  "fontSizes": ["0rem", "0.25rem", "0.5rem", "0.75rem", "...", "10rem"],
   "fontSizeScales": {
     "small": [0, 1, 2, 3],
     "base": [1, 2, 3, 4],
