@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/angeloashmore/styled-system-scale/compare/v0.2.0...v0.3.0) (2019-07-05)
+
+
+### Bug Fixes
+
+* use initial value as first value in scale ([8898c3e](https://github.com/angeloashmore/styled-system-scale/commit/8898c3e))
+
+
+### Features
+
+* add count and ratio options to linearScale ([e537a9b](https://github.com/angeloashmore/styled-system-scale/commit/e537a9b))
+* add reworked linearScale helper ([739bd9b](https://github.com/angeloashmore/styled-system-scale/commit/739bd9b))
+
+
+### Tests
+
+* add core unit tests ([8e50ec7](https://github.com/angeloashmore/styled-system-scale/commit/8e50ec7))
+
+
+
 ## [0.2.0](https://github.com/angeloashmore/styled-system-scale/compare/v0.1.1...v0.2.0) (2019-07-02)
 
 
