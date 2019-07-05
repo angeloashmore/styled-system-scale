@@ -9,21 +9,23 @@ import { interceptScales, composeScales } from './core'
 import { typographyScales } from './presets/typography'
 import { spaceScales } from './presets/space'
 
-import { scale, linearScale } from './helpers'
+import { linearScale } from './helpers'
 
 expect.addSnapshotSerializer(serializer)
 
 const theme = {
-  breakpoints: ['1rem', '2rem', '3rem'],
-  fontSizes: scale(10, linearScale()),
-  fontSizeScales: {
-    medium: scale(4, linearScale()),
-    large: scale(4, linearScale(10)),
-  },
-  space: scale(20, linearScale(0, 0.25, 100)),
+  breakpoints: linearScale('40rem', '64rem', { count: 3 }),
+  space: linearScale('0rem', '20rem', { ratio: 0.25 }),
   spaceScales: {
-    medium: scale(4, linearScale()),
-    large: scale(4, linearScale(10)),
+    small: linearScale(1, 4),
+    base: linearScale(4, 7),
+    large: linearScale(8, 11),
+  },
+  fontSizes: linearScale('1rem', '6rem', { ratio: 0.25 }),
+  fontSizeScales: {
+    small: linearScale(0, 3),
+    base: linearScale(1, 4),
+    large: linearScale(8, 11),
   },
 }
 
@@ -38,13 +40,17 @@ const Comp = styled('div')(
   ),
 )
 
+test('theme', () => {
+  expect(theme).toMatchSnapshot()
+})
+
 test('provides responsive values to style prop', () => {
   const tree = renderer.create(
     <ThemeProvider theme={theme}>
       <Comp
-        fontSizeScale={['medium', null, 'large']}
+        fontSizeScale={['base', null, 'large']}
         pb={2}
-        ptScale="medium"
+        ptScale="base"
         pxScale="large"
       />
     </ThemeProvider>,

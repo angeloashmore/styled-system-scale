@@ -22,12 +22,15 @@ import {
 } from 'styled-system-scale'
 
 const scales = composeScales(spaceScales, typographyScales)
-const styles = compose(
-  space,
-  typography,
-)
 
-const Box = styled.div(interceptScales(scales)(styles))
+const Box = styled.div(
+  interceptScales(scales)(
+    compose(
+      space,
+      typography,
+    ),
+  ),
+)
 ```
 
 Styled System Scale requires providing "scales" for each scale prop. For
@@ -35,31 +38,34 @@ example, the following theme sets up space and font size scales.
 
 ```js
 const theme = {
-  breakpoints: [40, 52, 64].map(x => x + 'rem'),
-  space: scale(12, modularScale()),
+  breakpoints: linearScale('40rem', '64rem', { count: 3 }),
+  space: linearScale('0rem', '10rem', { ratio: 0.25 }),
   spaceScales: {
-    small: scale(4, linearScale()),
-    base: scale(4, linearScale(4)),
-    large: scale(4, linearScale(8)),
+    small: linearScale(0, 3),
+    base: linearScale(2, 5),
+    large: linearScale(4, 7),
   },
-  fontSizes: scale(10, modularScale()),
+  fontSizes: linearScale('0rem', '10rem', { ratio: 0.25 }),
   fontSizeScales: {
-    small: scale(4, linearScale()),
-    base: scale(4, linearScale(1)),
-    large: scale(4, linearScale(4)),
+    small: linearScale(3, 3),
+    base: linearScale(4, 7),
+    large: linearScale(8, 11),
   },
 }
 ```
 
-With the theme in place, the scale props can be used to provide values to the
-Styled System props.
+With the theme in place, scale props can be used to provide values to the Styled
+System props.
 
 ```jsx
 // margin with responsive values from theme.spaceScales.medium
-<Box mScale="medium" />
+<Box mScale="large" />
 
-// fontSize with responsive values from theme.fontSizeScales.large
-<Box fontSizeScale="large" />
+// padding-bottom with responsive values from theme.spaceScales.base
+<Box pbScale="base" />
+
+// fontSize with responsive values from theme.fontSizeScales.small
+<Box fontSizeScale="small" />
 ```
 
 # Docs
