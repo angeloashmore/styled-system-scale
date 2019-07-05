@@ -4,7 +4,7 @@ Writing scales for your theme manually is ugly and time consuming. Why not
 automate it?
 
 ```js
-import { scale, linearScale, modularScaleGen } from 'styled-system-scale'
+import { linearScale } from 'styled-system-scale'
 
 const theme = {
   breakpoints: linearScale('40rem', '64rem', { count: 3 }),
@@ -95,10 +95,10 @@ Returns an array of values corresponding to a scale. This can be used to create
 scales in your theme.
 
 ```js
-import { scale, modularScale } from 'styled-system-scale'
+import { scale, modularScaleGen } from 'styled-system-scale'
 
 export const theme = {
-  space: scale(10, modularScale(0, 2)),
+  space: scale(10, modularScaleGen(0, 2)),
   // => [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
 }
 ```
@@ -106,7 +106,7 @@ export const theme = {
 `scale` takes the following arguments:
 
 ```sh
-scale(count = 0, gen = linearScale(), opts = { min, max, transform })
+scale(count = 0, gen = linearScaleGen(), opts = { min, max, transform })
 ```
 
 - `count`: Length of the resulting array.
@@ -157,7 +157,7 @@ scale(5, linearScaleGen(0, 0.5))
 `linearScaleGen` takes the following arguments:
 
 ```sh
-linearScale(initial = 0, ratio = 1, precision = 10)
+linearScaleGen(initial = 0, ratio = 1, precision = 10)
 ```
 
 - `initial`: Starting index for the scale.
