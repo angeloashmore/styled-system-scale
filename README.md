@@ -1,7 +1,7 @@
 # Styled System Scale
 
 Responsive, theme-based scale props for automatically applying scale values to
-[`styled-system`][styled-system].
+[Styled System][styled-system].
 
 ```sh
 npm i styled-system-scale
@@ -70,7 +70,8 @@ System props.
 
 # Docs
 
-- TODO: Getting Started
+- [Getting Started](./docs/getting-started.md)
 - [Helpers API](./docs/helpers.md)
+- [Reference Table](./docs/reference-table.md)
 
 [styled-system]: https://github.com/styled-system/styled-system
