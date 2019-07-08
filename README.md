@@ -73,8 +73,11 @@ System props.
 
 # Docs
 
-- [Getting Started](./docs/getting-started.md)
-- [Helpers API](./docs/helpers.md)
-- [Reference Table](./docs/reference-table.md)
+- [Getting Started][getting-started]
+- [Helpers API][helpers-api]
+- [Reference Table][reference-table]
 
 [styled-system]: https://github.com/styled-system/styled-system
+[getting-started]: ./docs/getting-started.md
+[helpers-api]: ./docs/helpers.md
+[reference-table]: ./docs/reference-table.md

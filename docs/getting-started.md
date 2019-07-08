@@ -87,11 +87,12 @@ Using the values responsively looks like the following.
 
 Using the `[1, 4, 8, 12]` padding value is likely to be used elsewhere in your
 app. Rather than manually keeping these values in sync, Styled System Scale
-provides a way to defined these responsive values in your theme.
+provides a way to define these responsive values in your theme.
 
 ```js
 // theme.js
-{
+
+export default {
   breakpoints: linearScale('40rem', '64rem', { count: 3 })
   space: linearScale('0rem', '5rem', { ratio: 0.5 }),
   spaceScales: {
@@ -101,7 +102,7 @@ provides a way to defined these responsive values in your theme.
 }
 ```
 
-Now we can reference the space using the `base` name.
+Now we can reference the responsive scale using the `base` name.
 
 ```jsx
 <Box pScale="base" />
@@ -115,7 +116,7 @@ Your Styled System component will need to be updated to add the `pScale` prop,
 and any other scale props needed, to your component.
 
 ```js
-// before
+// Before, without styled-system-scale
 
 import styled from 'styled-components'
 import { space, typography, color, compose } from 'styled-system'
@@ -130,7 +131,7 @@ const Box = styled.div(
 ```
 
 ```js
-// after
+// After, with styled-system-scale
 
 import { space, typography, color, compose } from 'styled-system'
 import {
@@ -161,4 +162,4 @@ functions.
 
 [styled-system]: https://github.com/styled-system/styled-system
 [styled-system-getting-started]: https://styled-system.com/getting-started/
-[reference-table]: ./docs/reference-table.md
+[reference-table]: ./reference-table.md
