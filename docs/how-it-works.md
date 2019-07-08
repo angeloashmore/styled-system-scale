@@ -5,9 +5,9 @@ Styled System prop. Styled System continues to do the heavy lifting of providing
 styles to your CSS-in-JS library.
 
 In order to do this, Styled System Scale intercepts your component's props
-before it gets to the Styled System props. The interceptor looks for props that
-match the scale prop names, such as `fontSizeScale`, and transforms it into a
-value that Styled System understands.
+before it gets to Styled System. The interceptor looks for props that match the
+scale prop names, such as `fontSizeScale`, and transforms it into a value that
+Styled System understands.
 
 In the following example, the theme defines breakpoints, font sizes, and a
 responsive font size scale named `large`.
@@ -44,9 +44,9 @@ props = { fontSize: [5, 10, 15, 20], fontSizeScale: 'large' }
 
 Note that the `fontSize` value is taken from `theme.fontSizeScales.large`.
 
-Styled System uses the fontSize prop to create the style objects used by
-`styled-system`, `emotion`, etc.
+Styled System uses the `fontSize` prop to create the style objects used by
+`styled-components`, `emotion`, etc.
 
-All props passed to the component are still passed to the underlying component.
-This allows the component to still accept a `fontSize` prop that overrides the
-scale prop.
+All props provided to the component are still passed to the underlying
+component. This allows the component to accept a `fontSize` prop that overrides
+the scale prop.

@@ -80,6 +80,6 @@ System props.
 
 [styled-system]: https://github.com/styled-system/styled-system
 [getting-started]: ./docs/getting-started.md
-[helpers-api]: ./docs/helpers.md
+[helpers-api]: ./docs/helpers-api.md
 [how-it-works]: ./docs/how-it-works.md
 [reference-table]: ./docs/reference-table.md
