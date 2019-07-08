@@ -76,4 +76,11 @@ return value can be passed directly to `styled` from `styled-components`,
 See the example in [`Compose`](#compose) to see how `interceptScales` can be
 used.
 
+## Helpers
+
+A collection of helpers are available to define scales for your theme.
+
+See the [Helpers API][helpers-api] document for a list of helpers.
+
 [styled-system-compose]: https://styled-system.com/api#compose
+[helpers-api]: ./helpers-api.md
