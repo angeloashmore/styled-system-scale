@@ -75,9 +75,11 @@ System props.
 
 - [Getting Started][getting-started]
 - [Helpers API][helpers-api]
+- [How it Works][how-it-works]
 - [Reference Table][reference-table]
 
 [styled-system]: https://github.com/styled-system/styled-system
 [getting-started]: ./docs/getting-started.md
 [helpers-api]: ./docs/helpers.md
+[how-it-works]: ./docs/how-it-works.md
 [reference-table]: ./docs/reference-table.md
