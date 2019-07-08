@@ -61,7 +61,7 @@ With the theme in place, scale props can be used to provide values to the Styled
 System props.
 
 ```jsx
-// margin with responsive values from theme.spaceScales.medium
+// margin with responsive values from theme.spaceScales.large
 <Box mScale="large" />
 
 // padding-bottom with responsive values from theme.spaceScales.base

@@ -27,7 +27,7 @@ const Box = styled.div(
 )
 ```
 
-`Box` can not accept a `fontSizeScale` prop that maps a theme value in
+`Box` can now accept a `fontSizeScale` prop that maps a theme value in
 `fontSizeScales` to the `fontSize` prop. Styled System will pick up the
 `fontSize` prop and create the style object for `styled-components`.
 
@@ -38,7 +38,7 @@ The `composeScales` utility works just like `styled-system`'s
 together into one.
 
 Note that `composeScales` and Styled System's `compose` is not the same as
-`compose` from functional programming libraries like Lodash and Ramda.
+`compose` from functional programming libraries such as Lodash and Ramda.
 
 ```js
 import styled from 'styled-components'
@@ -73,8 +73,7 @@ The `interceptScales` function takes in a scale parser function returned from
 return value can be passed directly to `styled` from `styled-components`,
 `emotion`, etc.
 
-See the example in [`Compose`](#compose) to see how `interceptScales` can be
-used.
+See the example in [Compose](#compose) to see how `interceptScales` can be used.
 
 ## Helpers
 
