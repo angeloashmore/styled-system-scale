@@ -3,6 +3,9 @@
 Responsive, theme-based scale props for automatically applying scale values to
 [Styled System][styled-system].
 
+[![npm version](https://flat.badgen.net/npm/v/styled-system-scale)](https://www.npmjs.com/package/styled-system-scale)
+[![Build Status](https://flat.badgen.net/travis/angeloashmore/styled-system-scale)](https://travis-ci.com/angeloashmore/styled-system-scale)
+
 ```sh
 npm i styled-system-scale
 ```
