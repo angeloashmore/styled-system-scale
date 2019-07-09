@@ -183,11 +183,22 @@ responsive scale for the first two breakpoints, but jumps to the `large`
 responsive scale on the third breakpoint.
 
 Note that changing the scale responsively keeps the scale value in line with
-those that are using the same scale not responsively. For example, if a
-component's font size starts using the `large` responsive scale starting at the
-third breakpoint, the font size for that breakpoint will match all other
-components using the `large` responsive scale regardless of the responsiveness
-of their scale props.
+those that are using the same scale not responsively.
+
+For example, if a component's font size starts using the `large` responsive
+scale starting at the third breakpoint, the font size for that breakpoint will
+match all other components using the `large` responsive scale regardless of the
+responsiveness of their scale props.
+
+```js
+// At the base viewport, the first Box component will have a smaller font size
+// than the second
+
+// At the first breakpoint, both Box components will have the same font sizes.
+
+<Box fontSizeScale={['base', 'large']} />
+<Box fontSize="large" />
+```
 
 [styled-system]: https://github.com/styled-system/styled-system
 [styled-system-getting-started]: https://styled-system.com/getting-started/
