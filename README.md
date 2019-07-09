@@ -13,8 +13,7 @@ npm i styled-system-scale
 # Usage
 
 ```js
-// Example uses styled-components, but styled-system-scale works with anything
-// styled-system supports, including emotion.
+// Example uses styled-components, but styled-system-scale works with anything styled-system supports, including emotion.
 import styled from 'styled-components'
 import { space, typography, compose } from 'styled-system'
 import {

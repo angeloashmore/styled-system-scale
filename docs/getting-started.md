@@ -191,8 +191,7 @@ match all other components using the `large` responsive scale regardless of the
 responsiveness of their scale props.
 
 ```js
-// At the base viewport, the first Box component will have a smaller font size
-// than the second
+// At the base viewport, the first Box component will have a smaller font size than the second
 
 // At the first breakpoint, both Box components will have the same font sizes.
 
