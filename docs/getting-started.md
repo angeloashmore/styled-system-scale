@@ -160,6 +160,35 @@ that align with Styled System's `space` and `typography` prop categories.
 For a complete list, see the [Reference Table][reference-table] of scale
 functions.
 
+## Responsive responsive scale props
+
+Yes, doubly responsive.
+
+Style System Scale allows you to change the scale used for different
+breakpoints. The syntax matches Styled System's responsive arrays.
+
+```js
+<Box
+  pScale={[
+    'base', // padding-bottom: theme.spaceScales.base[0]
+    null, // padding-bottom: theme.spaceScales.base[1]
+    'large', //padding-bottom: theme.spaceScales.large[2]
+  ]}
+/>
+```
+
+This can be useful when a scale value needs to change scales between
+breakpoints. For example, a component's font size might use the `base`
+responsive scale for the first two breakpoints, but jumps to the `large`
+responsive scale on the third breakpoint.
+
+Note that changing the scale responsively keeps the scale value in line with
+those that are using the same scale not responsively. For example, if a
+component's font size starts using the `large` responsive scale starting at the
+third breakpoint, the font size for that breakpoint will match all other
+components using the `large` responsive scale regardless of the responsiveness
+of their scale props.
+
 [styled-system]: https://github.com/styled-system/styled-system
 [styled-system-getting-started]: https://styled-system.com/getting-started/
 [reference-table]: ./reference-table.md
