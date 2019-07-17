@@ -19,9 +19,12 @@ export const scales = configs => {
       cache.breakpoints || get(props.theme, 'breakpoints', defaults.breakpoints)
     const systemProps = {}
 
-    for (const key in configs) {
+    for (const key in props) {
       const prop = castArray(props[key])
       const config = configs[key]
+
+      if (!config) continue
+
       const systemProp = config.systemProp
       const scale = get(props.theme, config.scale, config.defaultScale)
 
