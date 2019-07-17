@@ -24,7 +24,7 @@ configs.margin = {
     scale: 'spaceScales',
   },
   marginXScale: {
-    properties: 'marginX',
+    systemProp: 'marginX',
     scale: 'spaceScales',
   },
   marginYScale: {
