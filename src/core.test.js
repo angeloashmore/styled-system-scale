@@ -19,6 +19,15 @@ describe('scales', () => {
     const result = fontSizeScale(props)
     expect(result).toEqual({ ...props, fontSize: theme.fontSizeScales.base })
   })
+
+  test('parser transforms negative values', () => {
+    const props = { theme, fontSizeScale: '-base' }
+    const result = fontSizeScale(props)
+    expect(result).toEqual({
+      ...props,
+      fontSize: theme.fontSizeScales.base.map(x => -x),
+    })
+  })
 })
 
 describe('composeScales', () => {

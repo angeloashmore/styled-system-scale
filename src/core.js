@@ -12,6 +12,13 @@ const firstLeft = (arr, idx) => {
 
 const defaults = { breakpoints: [40, 52, 64].map(x => x + 'rem') }
 
+const parsePropValue = value => {
+  const isNegative = value[0] === '-'
+  const baseValue = isNegative ? value.slice(1) : value
+
+  return [baseValue, isNegative]
+}
+
 export const scales = configs => {
   const cache = {}
   const parse = props => {
@@ -31,11 +38,14 @@ export const scales = configs => {
       const result = []
 
       for (let i = 0; i < cache.breakpoints.length + 1; i++) {
-        const s = firstLeft(prop, i)
+        const [s, isNeg] = parsePropValue(firstLeft(prop, i))
 
         if (s === undefined) continue
 
-        result[i] = scale[s][i]
+        const v = scale[s][i]
+
+        if (isNeg) result[i] = typeof v === 'number' ? -v : `-${v}`
+        else result[i] = v
       }
 
       systemProps[systemProp] = result
