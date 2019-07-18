@@ -8,5 +8,6 @@ export {
   modularScaleGen,
 } from './helpers'
 
-export { typographyScales } from './presets/typography'
+export { gridScales } from './presets/grid'
 export { spaceScales } from './presets/space'
+export { typographyScales } from './presets/typography'

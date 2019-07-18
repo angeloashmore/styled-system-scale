@@ -36,4 +36,16 @@ import { typographyScales } from 'styled-system-scale'
 | --------------- | ------------------ | ---------------- |
 | `fontSizeScale` | `fontSize`         | `fontSizeScales` |
 
+## Grid
+
+```js
+import { gridScales } from 'styled-system-scale'
+```
+
+| Prop                 | Styled System Prop | Theme Field   |
+| -------------------- | ------------------ | ------------- |
+| `gridGapScale`       | `gridGap`          | `spaceScales` |
+| `gridColumnGapScale` | `gridColumnGap`    | `spaceScales` |
+| `gridRowGapScale`    | `gridRowGap`       | `spaceScales` |
+
 [styled-system-reference-table]: https://styled-system.com/table
