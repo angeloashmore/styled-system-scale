@@ -4,31 +4,31 @@ const configs = {}
 
 configs.margin = {
   marginScale: {
-    systemProp: 'margin',
+    systemProp: 'm',
     scale: 'spaceScales',
   },
   marginTopScale: {
-    systemProp: 'marginTop',
+    systemProp: 'mt',
     scale: 'spaceScales',
   },
   marginRightScale: {
-    systemProp: 'marginRight',
+    systemProp: 'mr',
     scale: 'spaceScales',
   },
   marginBottomScale: {
-    systemProp: 'marginBottom',
+    systemProp: 'mb',
     scale: 'spaceScales',
   },
   marginLeftScale: {
-    systemProp: 'marginLeft',
+    systemProp: 'ml',
     scale: 'spaceScales',
   },
   marginXScale: {
-    systemProp: 'marginX',
+    systemProp: 'mx',
     scale: 'spaceScales',
   },
   marginYScale: {
-    systemProp: 'marginY',
+    systemProp: 'my',
     scale: 'spaceScales',
   },
 }
@@ -42,31 +42,31 @@ configs.margin.myScale = configs.margin.marginYScale
 
 configs.padding = {
   paddingScale: {
-    systemProp: 'padding',
+    systemProp: 'p',
     scale: 'spaceScales',
   },
   paddingTopScale: {
-    systemProp: 'paddingTop',
+    systemProp: 'pt',
     scale: 'spaceScales',
   },
   paddingRightScale: {
-    systemProp: 'paddingRight',
+    systemProp: 'pr',
     scale: 'spaceScales',
   },
   paddingBottomScale: {
-    systemProp: 'paddingBottom',
+    systemProp: 'pb',
     scale: 'spaceScales',
   },
   paddingLeftScale: {
-    systemProp: 'paddingLeft',
+    systemProp: 'pl',
     scale: 'spaceScales',
   },
   paddingXScale: {
-    systemProp: 'paddingX',
+    systemProp: 'px',
     scale: 'spaceScales',
   },
   paddingYScale: {
-    systemProp: 'paddingY',
+    systemProp: 'py',
     scale: 'spaceScales',
   },
 }
