@@ -4,6 +4,11 @@ import {
   linearRatio,
   modularScaleGen,
   linearScale,
+  negateScale,
+  addScales,
+  subtractScales,
+  mergeScalesLeft,
+  mergeScalesRight,
 } from './helpers'
 
 describe('scale', () => {
@@ -134,5 +139,82 @@ describe('linearScale', () => {
   test('passing unit option overrides min and max units', () => {
     const result = linearScale('4rem', '8rem', { unit: 'px' })
     expect(result).toEqual(['4px', '5px', '6px', '7px', '8px'])
+  })
+})
+
+describe('negateScale', () => {
+  test('negates all values in a scale', () => {
+    const scale = linearScale('4rem', '8rem')
+    const result = negateScale(scale)
+
+    expect(result).toEqual(['-4rem', '-5rem', '-6rem', '-7rem', '-8rem'])
+  })
+
+  test('works with negative scale values', () => {
+    const result = negateScale(['-4rem', '-8rem'])
+    expect(result).toEqual(['4rem', '8rem'])
+  })
+
+  test('works with unitless values', () => {
+    const scale = linearScale(4, 8)
+    const result = negateScale(scale)
+
+    expect(result).toEqual([-4, -5, -6, -7, -8])
+  })
+})
+
+describe('addScales', () => {
+  test('adds paired values in two scales', () => {
+    const a = [0, 1, 2]
+    const b = [2, 4, 6]
+    const result = addScales(a, b)
+
+    expect(result).toEqual([2, 5, 8])
+  })
+
+  test('supports values with units', () => {
+    const a = ['0rem', '1rem', '2rem']
+    const b = ['2rem', '4rem', '6rem']
+    const result = addScales(a, b)
+
+    expect(result).toEqual(['2rem', '5rem', '8rem'])
+  })
+})
+
+describe('subtractScales', () => {
+  test('subtracts paired values in two scales', () => {
+    const a = [2, 4, 6]
+    const b = [0, 1, 2]
+    const result = subtractScales(a, b)
+
+    expect(result).toEqual([2, 3, 4])
+  })
+
+  test('supports values with units', () => {
+    const a = ['2rem', '4rem', '6rem']
+    const b = ['0rem', '1rem', '2rem']
+    const result = subtractScales(a, b)
+
+    expect(result).toEqual(['2rem', '3rem', '4rem'])
+  })
+})
+
+describe.only('mergeScalesLeft', () => {
+  test('merges scale values from right to left', () => {
+    const a = ['2rem', '4rem', '6rem']
+    const b = [undefined, '1rem']
+    const result = mergeScalesLeft(a, b)
+
+    expect(result).toEqual(['2rem', '1rem', '6rem'])
+  })
+})
+
+describe('mergeScalesRight', () => {
+  test('merges scale values from right to left', () => {
+    const a = ['2rem', undefined, '6rem']
+    const b = [undefined, '1rem']
+    const result = mergeScalesRight(a, b)
+
+    expect(result).toEqual(['2rem', '1rem', '6rem'])
   })
 })

@@ -191,3 +191,96 @@ linearRatio(min, max, steps = 1)
 - `steps`: Number of steps to take from `min` to `max` on the scale. For
   example, if you know there are three values between the two known values,
   `steps` should be `4`.
+
+## Negate scale helper
+
+Returns scale with negative values.
+
+```js
+import { negateScale } from 'styled-system-scale'
+
+negateScale(['1rem', '-2rem', '4rem'])
+// => ['-1rem', '2rem', '-4rem']
+```
+
+`negateScale` takes the following arguments:
+
+```sh
+negateScale(scale)
+```
+
+- `scale`: Scale to negate. Values can have units.
+
+## Add scales helper
+
+Returns a new scale by adding pairs from two scales.
+
+```js
+import { addScales } from 'styled-system-scale'
+
+addScales(['1rem', '2rem', '3rem'], [null, '3rem'])
+// => ['1rem', '5rem', '3rem']
+```
+
+`addScales` takes the following arguments:
+
+```js
+addScales(a, b)
+```
+
+- `a`: Base scale. Values can have units.
+- `b`: Scale to add. Values can have units.
+
+## Subtract scales helper
+
+Returns a new scale by subtracting pairs from two scales.
+
+```js
+import { subtractScales } from 'styled-system-scale'
+
+subtractScales(['1rem', '2rem', '3rem'], [null, '3rem'])
+// => ['1rem', '-1rem', '3rem']
+```
+
+`subtractScales` takes the following arguments:
+
+```js
+subtractScales(a, b)
+```
+
+- `a`: Base scale. Values can have units.
+- `b`: Scale to subtract. Values can have units.
+
+## Merge scales helpers
+
+Returns a new scale by merging scale values from two scales. Both left and right
+directional merging functions are available. Undefined values in the non-base
+scale are skipped.
+
+```js
+import { mergeScalesLeft, mergeScalesRight } from 'styled-system-scale'
+
+mergeScalesLeft([0, 2, 4], [1, null, undefined])
+// => [1, null, 4]
+
+mergeScalesRight([0, undefined, 4], [1, null, undefined])
+// => [0, null, 4]
+```
+
+`mergeScalesLeft` takes the following arguments:
+
+```sh
+mergeScalesLeft(a, b)
+```
+
+- `a`: Base scale.
+- `b`: Scale to merge into `a`. `undefined` values are skipped.
+
+`mergeScalesRight` takes the following arguments:
+
+```sh
+mergeScalesLeft(a, b)
+```
+
+- `a`: Scale to merge into `b`. `undefined` values are skipped.
+- `b`: Base scale.

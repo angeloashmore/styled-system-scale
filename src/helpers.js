@@ -35,6 +35,7 @@ export const scale = (
   return arr
 }
 
+// Returns a linear scale.
 export const linearScale = (
   min,
   max,
@@ -66,3 +67,42 @@ export const linearScale = (
 
   return scale(count, gen, { unit, min: minV, max: maxV, ...opts })
 }
+
+// Negates all values of a scale. Maintains units.
+export const negateScale = scale =>
+  scale.map(x => {
+    const [v, unit] = stripUnit(x, true)
+
+    return -v + (unit || 0)
+  })
+
+// Adds two scales together. Maintains the unit of the left array. Unit of the
+// right array is ignored.
+export const addScales = (a, b) => {
+  const [, unit] = stripUnit(a[0], true)
+  const result = []
+
+  for (let i = 0; i < a.length; i++)
+    result[i] = stripUnit(a[i] || 0) + stripUnit(b[i] || 0) + (unit || 0)
+
+  return result
+}
+
+// Subtracts two scales. Maintains the unit of the left array. Unit of the
+// right array is ignored.
+export const subtractScales = (a, b) => addScales(a, negateScale(b))
+
+// Merge scale values from the right scale into the left scale. An undefined
+// value in the right scale falls back to the left scale value.
+export const mergeScalesLeft = (a, b) => {
+  const result = []
+
+  for (let i = 0; i < Math.max(a.length, b.length); i++)
+    result[i] = b[i] === undefined ? a[i] : b[i]
+
+  return result
+}
+
+// Merge scale values from the left scale into the right scale. An undefined
+// value in the left scale falls back to the right scale value.
+export const mergeScalesRight = (a, b) => mergeScalesLeft(b, a)
