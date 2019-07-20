@@ -6,6 +6,11 @@ export {
   linearRatio,
   linearScaleGen,
   modularScaleGen,
+  addScales,
+  mergeScalesLeft,
+  mergeScalesRight,
+  negateScale,
+  subtractScales,
 } from './helpers'
 
 export { gridScales } from './presets/grid'
