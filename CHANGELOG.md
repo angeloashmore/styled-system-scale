@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/angeloashmore/styled-system-scale/compare/v0.3.2...v0.4.0) (2019-07-20)
+
+
+### Bug Fixes
+
+* typo in space preset ([2262f13](https://github.com/angeloashmore/styled-system-scale/commit/2262f13))
+* use shorthand space props ([af3421b](https://github.com/angeloashmore/styled-system-scale/commit/af3421b))
+
+
+### Features
+
+* add grid preset ([b917d35](https://github.com/angeloashmore/styled-system-scale/commit/b917d35))
+* add scale helpers ([da1d867](https://github.com/angeloashmore/styled-system-scale/commit/da1d867))
+* handle negative scale names ([510faf7](https://github.com/angeloashmore/styled-system-scale/commit/510faf7))
+
+
+
 ### [0.3.2](https://github.com/angeloashmore/styled-system-scale/compare/v0.3.1...v0.3.2) (2019-07-17)
 
 
