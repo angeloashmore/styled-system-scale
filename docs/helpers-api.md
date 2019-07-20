@@ -224,7 +224,7 @@ addScales(['1rem', '2rem', '3rem'], [null, '3rem'])
 
 `addScales` takes the following arguments:
 
-```js
+```sh
 addScales(a, b)
 ```
 
@@ -244,7 +244,7 @@ subtractScales(['1rem', '2rem', '3rem'], [null, '3rem'])
 
 `subtractScales` takes the following arguments:
 
-```js
+```sh
 subtractScales(a, b)
 ```
 
