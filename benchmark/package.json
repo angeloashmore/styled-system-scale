@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "styled-system-scale": "0.4.1",
+    "benchmark": "^2.1.4"
+  }
+}
