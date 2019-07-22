@@ -1,6 +1,4 @@
-import { get } from 'styled-system'
-
-const castArray = x => (Array.isArray(x) ? x : [x])
+const defaults = { breakpoints: [40, 52, 64].map(x => x + 'rem') }
 
 const firstLeft = (arr, idx) => {
   if (idx >= arr.length) idx = arr.length - 1
@@ -10,8 +8,6 @@ const firstLeft = (arr, idx) => {
   return arr[idx]
 }
 
-const defaults = { breakpoints: [40, 52, 64].map(x => x + 'rem') }
-
 const parsePropValue = value => {
   const isNegative = value[0] === '-'
   const baseValue = isNegative ? value.slice(1) : value
@@ -19,39 +15,52 @@ const parsePropValue = value => {
   return [baseValue, isNegative]
 }
 
+const negate = v => (typeof v === 'number' ? -v : '-' + v)
+
 export const scales = configs => {
   const cache = {}
   const parse = props => {
     cache.breakpoints =
-      cache.breakpoints || get(props.theme, 'breakpoints', defaults.breakpoints)
+      (props.theme && props.theme.breakpoints) || defaults.breakpoints
     const systemProps = {}
 
-    for (const key in props) {
-      const prop = castArray(props[key])
+    const propKeys = Object.keys(props)
+
+    for (let i = 0; i < propKeys.length; i++) {
+      const key = propKeys[i]
+      const prop = props[key]
       const config = configs[key]
 
       if (!config) continue
 
       const systemProp = config.systemProp
-      const scale = get(props.theme, config.scale, config.defaultScale)
+      const scale =
+        (props.theme && props.theme[config.scale]) || config.defaultScale
 
-      const result = []
-
-      for (let i = 0; i < cache.breakpoints.length + 1; i++) {
-        const [s, isNeg] = parsePropValue(firstLeft(prop, i))
+      if (!Array.isArray(prop)) {
+        const [s, isNeg] = parsePropValue(prop)
 
         if (s === undefined) continue
 
-        const v = scale[s][i]
+        if (isNeg) systemProps[systemProp] = scale[s].map(negate)
+        else systemProps[systemProp] = scale[s]
+      } else {
+        const result = []
 
-        if (isNeg) result[i] = typeof v === 'number' ? -v : `-${v}`
-        else result[i] = v
+        for (let j = 0; j < cache.breakpoints.length + 1; j++) {
+          const [s, isNeg] = parsePropValue(firstLeft(prop, j))
+
+          if (s === undefined) continue
+
+          if (isNeg) result[j] = negate(scale[s][j])
+          else result[j] = scale[s][j]
+        }
+
+        systemProps[systemProp] = result
       }
-
-      systemProps[systemProp] = result
     }
 
-    return { ...systemProps, ...props }
+    return Object.assign(systemProps, props)
   }
 
   parse.configs = configs
