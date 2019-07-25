@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.3](https://github.com/angeloashmore/styled-system-scale/compare/v0.4.2...v0.4.3) (2019-07-25)
+
+
+### Bug Fixes
+
+* remove polished ([aaa6ec3](https://github.com/angeloashmore/styled-system-scale/commit/aaa6ec3))
+
+
+
 ### [0.4.2](https://github.com/angeloashmore/styled-system-scale/compare/v0.4.2-next.0...v0.4.2) (2019-07-25)
 
 
