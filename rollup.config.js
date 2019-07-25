@@ -18,5 +18,5 @@ export default {
     ...Object.keys(pkg.dependencies || {}),
     ...Object.keys(pkg.peerDependencies || {}),
   ]),
-  plugins: [clear({ targets: ['dist'] }), babel({ runtimeHelpers: true })],
+  plugins: [clear({ targets: ['dist'] }), babel()],
 }
