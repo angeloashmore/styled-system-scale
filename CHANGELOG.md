@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2-next.0](https://github.com/angeloashmore/styled-system-scale/compare/v0.4.1...v0.4.2-next.0) (2019-07-22)
+
+
+### Tests
+
+* ignore benchmark dir ([89d2d6c](https://github.com/angeloashmore/styled-system-scale/commit/89d2d6c))
+
+
+
 ### [0.4.1](https://github.com/angeloashmore/styled-system-scale/compare/v0.4.0...v0.4.1) (2019-07-20)
 
 
