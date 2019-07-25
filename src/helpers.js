@@ -1,4 +1,17 @@
-import { stripUnit } from 'polished'
+const _cssRegex = /^([+-]?(?:\d+|\d*\.\d+))([a-z]*|%)$/
+
+const _stripUnit = (val, unitReturn) => {
+  if (typeof val !== 'string') return unitReturn ? [val, undefined] : val
+  const matchedValue = val.match(_cssRegex)
+
+  if (unitReturn) {
+    if (matchedValue) return [parseFloat(val), matchedValue[2]]
+    return [val, undefined]
+  }
+
+  if (matchedValue) return parseFloat(val)
+  return val
+}
 
 // Generator function that returns an increasing modular scale value on each
 // `next` call.
@@ -46,8 +59,8 @@ export const linearScale = (
       'Count and ratio were provided, but only one can be defined.',
     )
 
-  const [minV, minU] = stripUnit(min, true)
-  const [maxV, maxU] = stripUnit(max, true)
+  const [minV, minU] = _stripUnit(min, true)
+  const [maxV, maxU] = _stripUnit(max, true)
 
   if (!unit && minU !== maxU)
     throw new Error('Units of min and max do not match.')
@@ -71,7 +84,7 @@ export const linearScale = (
 // Negates all values of a scale. Maintains units.
 export const negateScale = scale =>
   scale.map(x => {
-    const [v, unit] = stripUnit(x, true)
+    const [v, unit] = _stripUnit(x, true)
 
     return -v + (unit || 0)
   })
@@ -79,11 +92,11 @@ export const negateScale = scale =>
 // Adds two scales together. Maintains the unit of the left array. Unit of the
 // right array is ignored.
 export const addScales = (a, b) => {
-  const [, unit] = stripUnit(a[0], true)
+  const [, unit] = _stripUnit(a[0], true)
   const result = []
 
   for (let i = 0; i < a.length; i++)
-    result[i] = stripUnit(a[i] || 0) + stripUnit(b[i] || 0) + (unit || 0)
+    result[i] = _stripUnit(a[i] || 0) + _stripUnit(b[i] || 0) + (unit || 0)
 
   return result
 }

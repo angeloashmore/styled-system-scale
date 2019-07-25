@@ -28,8 +28,7 @@
   "author": "Angelo Ashmore <angelo.ashmore@walltowall.com>",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.5.5",
-    "polished": "^3.4.1"
+    "@babel/runtime": "^7.5.5"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
