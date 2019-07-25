@@ -1,13 +1,9 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": true
-        }
-      }
-    ],
-    ["@babel/preset-react"]
-  ]
+  "presets": ["@babel/preset-env"],
+  "plugins": ["@babel/plugin-transform-runtime"],
+  "env": {
+    "test": {
+      "presets": ["@babel/preset-react"]
+    }
+  }
 }
