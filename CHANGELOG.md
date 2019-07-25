@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.4](https://github.com/angeloashmore/styled-system-scale/compare/v0.4.3...v0.4.4) (2019-07-25)
+
+
+### Bug Fixes
+
+* reduce browser support ([06dcb99](https://github.com/angeloashmore/styled-system-scale/commit/06dcb99))
+
+
+
 ### [0.4.3](https://github.com/angeloashmore/styled-system-scale/compare/v0.4.2...v0.4.3) (2019-07-25)
 
 
