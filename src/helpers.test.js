@@ -199,7 +199,7 @@ describe('subtractScales', () => {
   })
 })
 
-describe.only('mergeScalesLeft', () => {
+describe('mergeScalesLeft', () => {
   test('merges scale values from right to left', () => {
     const a = ['2rem', '4rem', '6rem']
     const b = [undefined, '1rem']
