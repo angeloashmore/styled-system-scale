@@ -14,5 +14,6 @@ export {
 } from './helpers'
 
 export { gridScales } from './presets/grid'
+export { positionScales } from './presets/position'
 export { spaceScales } from './presets/space'
 export { typographyScales } from './presets/typography'
