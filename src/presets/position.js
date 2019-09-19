@@ -3,19 +3,19 @@ import { scales } from '../core'
 const configs = {
   topScale: {
     systemProp: 'top',
-    scale: 'space',
+    scale: 'spaceScales',
   },
   rightScale: {
     systemProp: 'right',
-    scale: 'space',
+    scale: 'spaceScales',
   },
   bottomScale: {
     systemProp: 'bottom',
-    scale: 'space',
+    scale: 'spaceScales',
   },
   leftScale: {
     systemProp: 'left',
-    scale: 'space',
+    scale: 'spaceScales',
   },
 }
 
