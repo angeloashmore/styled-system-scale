@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/angeloashmore/styled-system-scale/compare/v0.6.0...v0.6.1) (2019-09-19)
+
+
+### Bug Fixes
+
+* use correct scale for position preset ([5dc2a7b](https://github.com/angeloashmore/styled-system-scale/commit/5dc2a7b))
+
 ## [0.6.0](https://github.com/angeloashmore/styled-system-scale/compare/v0.5.1...v0.6.0) (2019-09-19)
 
 
