@@ -5,7 +5,7 @@
     "module": "esnext",
     "jsx": "react",
     "resolveJsonModule": true,
-    "lib": ["esnext", "dom"],
+    "lib": ["esnext"],
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
