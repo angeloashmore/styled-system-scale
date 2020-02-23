@@ -1,4 +1,4 @@
-import { scales, composeScales, interceptScales } from './core'
+import { scales, composeScales, interceptScales } from '../src/core'
 
 const theme = {
   fontSizeScales: { base: [1, 2, 3, 4] },

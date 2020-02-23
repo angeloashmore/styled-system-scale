@@ -5,11 +5,11 @@ import styled from '@emotion/styled'
 import { ThemeProvider } from 'emotion-theming'
 import { compose, typography, space } from 'styled-system'
 
-import { interceptScales, composeScales } from './core'
-import { typographyScales } from './presets/typography'
-import { spaceScales } from './presets/space'
+import { interceptScales, composeScales } from '../src/core'
+import { typographyScales } from '../src/presets/typography'
+import { spaceScales } from '../src/presets/space'
 
-import { linearScale } from './helpers'
+import { linearScale } from '../src/helpers'
 
 expect.addSnapshotSerializer(serializer)
 
@@ -32,14 +32,7 @@ const theme = {
 const scales = composeScales(typographyScales, spaceScales)
 const interceptor = interceptScales(scales)
 
-const Comp = styled('div')(
-  interceptor(
-    compose(
-      typography,
-      space,
-    ),
-  ),
-)
+const Comp = styled('div')(interceptor(compose(typography, space)))
 
 test('theme', () => {
   expect(theme).toMatchSnapshot()

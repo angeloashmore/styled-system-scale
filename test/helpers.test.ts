@@ -9,7 +9,7 @@ import {
   subtractScales,
   mergeScalesLeft,
   mergeScalesRight,
-} from './helpers'
+} from '../src/helpers'
 
 describe('scale', () => {
   test('returns an empty scale with default options', () => {

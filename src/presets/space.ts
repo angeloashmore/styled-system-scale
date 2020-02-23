@@ -1,6 +1,6 @@
-import { scales } from '../core'
+import { scales, ScaleConfigs } from '../core'
 
-const configs = {}
+const configs: Record<any, ScaleConfigs> = {}
 
 configs.margin = {
   marginScale: {
