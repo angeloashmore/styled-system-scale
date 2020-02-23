@@ -13,7 +13,7 @@ import {
 
 describe('scale', () => {
   test('returns an empty scale with default options', () => {
-    const result = scale()
+    const result = scale(0)
     expect(result).toEqual([])
   })
 

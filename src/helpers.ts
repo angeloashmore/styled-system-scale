@@ -1,4 +1,4 @@
-type ScaleElement = string | number
+type ScaleElement = string | number | undefined
 type Scale<T = ScaleElement> = T[]
 
 const cssRegex = /^([+-]?(?:\d+|\d*\.\d+))([a-z]*|%)$/
