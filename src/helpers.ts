@@ -1,5 +1,7 @@
-type ScaleElement = string | number | undefined
+type ScaleElement = string | number
+type WeakScaleElement = string | number | undefined
 type Scale<T = ScaleElement> = T[]
+type WeakScale<T = WeakScaleElement> = T[]
 
 const cssRegex = /^([+-]?(?:\d+|\d*\.\d+))([a-z]*|%)$/
 
@@ -193,7 +195,7 @@ export const linearScale = <T extends number | string>(
  *
  * @returns The scale with all values negated.
  */
-export const negateScale = (scale: Scale) =>
+export const negateScale = (scale: WeakScale) =>
   scale.map(x => {
     if (typeof x === undefined) return x
 
@@ -211,7 +213,7 @@ export const negateScale = (scale: Scale) =>
  *
  * @returns A scale with values of pairs from each scale added.
  */
-export const addScales = (a: Scale, b: Scale): Scale => {
+export const addScales = (a: WeakScale, b: WeakScale): WeakScale => {
   const [, unit] = stripUnit(a[0], true) as [unknown, string?]
   const hasUnit = unit !== undefined
   const result = []
@@ -237,7 +239,7 @@ export const addScales = (a: Scale, b: Scale): Scale => {
  *
  * @returns A scale with values of pairs from each scale subtracted.
  */
-export const subtractScales = (a: Scale, b: Scale) =>
+export const subtractScales = (a: WeakScale, b: WeakScale) =>
   addScales(a, negateScale(b))
 
 /**
@@ -249,7 +251,7 @@ export const subtractScales = (a: Scale, b: Scale) =>
  *
  * @returns A scale with merged values.
  */
-export const mergeScalesLeft = (a: Scale, b: Scale): Scale => {
+export const mergeScalesLeft = (a: WeakScale, b: WeakScale): WeakScale => {
   const result = []
 
   for (let i = 0; i < Math.max(a.length, b.length); i++)
@@ -267,4 +269,5 @@ export const mergeScalesLeft = (a: Scale, b: Scale): Scale => {
  *
  * @returns A scale with merged values.
  */
-export const mergeScalesRight = (a: Scale, b: Scale) => mergeScalesLeft(b, a)
+export const mergeScalesRight = (a: WeakScale, b: WeakScale) =>
+  mergeScalesLeft(b, a)
