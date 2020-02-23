@@ -1,19 +1,17 @@
-export { scales, composeScales, interceptScales } from './core'
+import { Theme } from 'styled-system'
+import * as CSS from 'csstype'
 
-export {
-  scale,
-  linearScale,
-  linearRatio,
-  linearScaleGen,
-  modularScaleGen,
-  addScales,
-  mergeScalesLeft,
-  mergeScalesRight,
-  negateScale,
-  subtractScales,
-} from './helpers'
+export * from './core'
+export * from './helpers'
 
-export { gridScales } from './presets/grid'
-export { positionScales } from './presets/position'
-export { spaceScales } from './presets/space'
-export { typographyScales } from './presets/typography'
+export * from './presets/grid'
+export * from './presets/position'
+export * from './presets/space'
+export * from './presets/typography'
+
+export interface ScalesTheme extends Theme {
+  spaceScales?: Record<any, CSS.MarginProperty<number | string>[]>
+  fontSizeScales?: Record<any, CSS.FontSizeProperty<number>[]>
+}
+
+export type RequiredScalesTheme = Required<ScalesTheme>

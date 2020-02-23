@@ -1,14 +1,14 @@
-type ScaleElement = string | number | undefined
-type Scale = ScaleElement[]
+type ScaleElement = string | number
+type Scale<T = ScaleElement> = T[]
 
-const _cssRegex = /^([+-]?(?:\d+|\d*\.\d+))([a-z]*|%)$/
+const cssRegex = /^([+-]?(?:\d+|\d*\.\d+))([a-z]*|%)$/
 
-const _stripUnit = (
-  val: ScaleElement,
+const stripUnit = <T>(
+  val: T,
   unitReturn: boolean = false,
-): [ScaleElement, string?] | ScaleElement => {
+): T | number | [T | number, string?] => {
   if (typeof val !== 'string') return unitReturn ? [val, undefined] : val
-  const matchedValue = val.match(_cssRegex)
+  const matchedValue = val.match(cssRegex)
 
   if (unitReturn) {
     if (matchedValue) return [parseFloat(val), matchedValue[2]]
@@ -19,44 +19,93 @@ const _stripUnit = (
   return val
 }
 
-// Generator function that returns an increasing modular scale value on each
-// `next` call.
+/**
+ * Generator function that returns an modular scale values.
+ *
+ * @param initial Starting/first value of the scale.
+ * @param ratio Ratio between values.
+ * @param precision Number precision for scale values.
+ *
+ * @returns Increasing modular scale values on each `next` call.
+ */
 export function* modularScaleGen(
-  i = 0,
-  r = 2,
-  p = 100,
-): Generator<number, number, number> {
+  initial = 0,
+  ratio = 2,
+  precision = 100,
+): Generator<number, never> {
   let j = 0
-  while (true) yield Math.round(p * Math.pow(r, j++)) / p + i
+  while (true)
+    yield Math.round(precision * Math.pow(ratio, j++)) / precision + initial
 }
 
-// Generator function that returns an increasing linear scale value on each
-// `next` call.
+/**
+ * Generator function that returns linear scale values.
+ *
+ *
+ * @param initial Starting/first value of the scale.
+ * @param difference Difference between values.
+ * @param precision Number precision for scale values.
+ *
+ * @returns Increasing linear scale values on each `next` call.
+ */
 export function* linearScaleGen(
-  i = 0,
-  r = 1,
-  p = 100,
-): Generator<number, number, number> {
+  initial = 0,
+  difference = 1,
+  precision = 100,
+): Generator<number, never> {
   let j = 0
-  while (true) yield Math.round(p * j++ * r) / p + i
+  while (true)
+    yield Math.round(precision * j++ * difference) / precision + initial
 }
 
-// Returns a linear ratio given a min, max, and number of steps to get from min
-// to max.
+/**
+ * Calculates a linear ratio given a min, max, and number of steps to get from min
+ * to max.
+ *
+ * @param min Minimum value in the scale.
+ * @param max Maximum value in the scale.
+ * @param steps Number of steps to get from `min` to `max` in the scale.
+ *
+ * @returns Ratio between each step in the linear scale.
+ */
 export const linearRatio = (min: number, max: number, steps = 1) =>
   (max - min) / steps
 
+/**
+ * Options for creating a scale.
+ */
 interface ScaleOptions {
+  /** A CSS unit to assign to each value in the scale (e.g. "px", "rem") */
   unit?: string
+  /** Minumum value in the scale */
   min?: number
+  /** Maximum value in the scale */
   max?: number
+  /**
+   * Transformer function applied to each value in the scale. Useful if the
+   * scale value needs to be shifted or is dependent on other values.
+   *
+   * @param val A scale value.
+   * @param index Index of the value in the scale.
+   * @param count Total number of values in the scale.
+   *
+   * @returns The transformed scale value.
+   */
   transform?: (val: number, index: number, count: number) => number
 }
 
-// Returns a scale using the provided scaling function.
+/**
+ * Creates a scale using the provided scaling function.
+ *
+ * @param count Total number of values in the scale.
+ * @param gen Generator function to create values in the scale.
+ * @param options Options to configure the scale.
+ *
+ * @returns An array of values on the scale.
+ */
 export const scale = (
-  count = 0,
-  gen = linearScaleGen(),
+  count: number,
+  gen: Generator<number, never> = linearScaleGen(),
   options: ScaleOptions = {},
 ): Scale => {
   const {
@@ -69,40 +118,54 @@ export const scale = (
   const arr = []
 
   for (let i = 0; i < count; i++) {
-    let val: string | number = Math.min(
+    let val = Math.min(
       max,
       Math.max(min, transform(gen.next().value, i, count)),
     )
-    if (unit !== null && unit !== undefined) val = val + unit
 
-    arr.push(val)
+    if (unit === undefined) arr.push(val)
+    else arr.push(val + unit)
   }
 
-  return arr
+  return unit === undefined ? (arr as number[]) : (arr as string[])
 }
 
+/**
+ * Options for creating a linear scale.
+ */
 interface LinearScaleOptions extends ScaleOptions {
+  /** Total number of values in the scale */
   count?: number
-  ratio?: number
+  /** Difference between values in the scale */
+  difference?: number
+  /** Number precision for scale values. */
   precision?: number
 }
 
-// Returns a linear scale.
-export const linearScale = (
-  min: string | number,
-  max: string | number,
+/**
+ * Creates a linear scale.
+ *
+ * @param min The minimum value in the scale.
+ * @param max The maximum value in the scale.
+ * @param options Options to configure the scale.
+ *
+ * @returns An array of values on the scale.
+ */
+export const linearScale = <T extends number | string>(
+  min: T,
+  max: T,
   options: LinearScaleOptions = {},
-): Scale => {
+) => {
   const { precision, ...opts } = options
-  let { count, ratio, unit } = options
+  let { count, difference, unit } = options
 
-  if (count && ratio)
+  if (count && difference)
     throw new Error(
       'Count and ratio were provided, but only one can be defined.',
     )
 
-  const [minV, minU] = _stripUnit(min, true) as [number, string?]
-  const [maxV, maxU] = _stripUnit(max, true) as [number, string?]
+  const [minN, minU] = stripUnit(min, true) as [number, string?]
+  const [maxN, maxU] = stripUnit(max, true) as [number, string?]
 
   if (!unit && minU !== maxU)
     throw new Error('Units of min and max do not match.')
@@ -110,39 +173,52 @@ export const linearScale = (
   unit = unit || minU
 
   if (count) {
-    ratio = linearRatio(minV, maxV, count - 1)
-  } else if (ratio) {
-    count = (maxV - minV) / ratio + 1
+    difference = linearRatio(minN, maxN, count - 1)
+  } else if (difference) {
+    count = (maxN - minN) / difference + 1
   } else {
-    count = maxV - minV + 1
-    ratio = 1
+    count = maxN - minN + 1
+    difference = 1
   }
 
-  const gen = linearScaleGen(minV, ratio, precision)
+  const gen = linearScaleGen(minN, difference, precision)
 
-  return scale(count, gen, { unit, min: minV, max: maxV, ...opts })
+  return scale(count, gen, { unit, min: minN, max: maxN, ...opts })
 }
 
-// Negates all values of a scale. Maintains units.
+/**
+ * Negates all values of a scale. Maintains the units of each value.
+ *
+ * @param scale Scale to negate.
+ *
+ * @returns The scale with all values negated.
+ */
 export const negateScale = (scale: Scale) =>
   scale.map(x => {
     if (typeof x === undefined) return x
 
-    const [v, unit] = _stripUnit(x, true) as [string | number, string?]
+    const [v, unit] = stripUnit(x, true) as [string | number, string?]
 
     return unit === undefined ? -v : -v + unit
   })
 
-// Adds two scales together. Maintains the unit of the left array. Unit of the
-// right array is ignored.
+/**
+ * Adds the right scale to the left. Maintains the unit of the left scale. The
+ * unit of the right scale is ignored.
+ *
+ * @param a The left scale. The unit of this scale is used in the new scale.
+ * @param b The right scale. The unit of this scale is ignored.
+ *
+ * @returns A scale with values of pairs from each scale added.
+ */
 export const addScales = (a: Scale, b: Scale): Scale => {
-  const [, unit] = _stripUnit(a[0], true) as [unknown, string?]
+  const [, unit] = stripUnit(a[0], true) as [unknown, string?]
   const hasUnit = unit !== undefined
   const result = []
 
   for (let i = 0; i < a.length; i++) {
-    const ai = _stripUnit(a[i] || 0) as string | number
-    const bi = _stripUnit(b[i] || 0) as string | number
+    const ai = stripUnit(a[i] || 0) as string | number
+    const bi = stripUnit(b[i] || 0) as string | number
 
     result[i] = hasUnit
       ? (ai as string) + (bi as string) + unit
@@ -152,13 +228,27 @@ export const addScales = (a: Scale, b: Scale): Scale => {
   return result
 }
 
-// Subtracts two scales. Maintains the unit of the left array. Unit of the
-// right array is ignored.
+/**
+ * Subtracts the right scale from the left. Maintains the unit of the left
+ * scale. The unit of the right scale is ignored.
+ *
+ * @param a The left scale. The unit of this scale is used in the new scale.
+ * @param b The right scale. The unit of this scale is ignored.
+ *
+ * @returns A scale with values of pairs from each scale subtracted.
+ */
 export const subtractScales = (a: Scale, b: Scale) =>
   addScales(a, negateScale(b))
 
-// Merge scale values from the right scale into the left scale. An undefined
-// value in the right scale falls back to the left scale value.
+/**
+ * Merges scale values from the right scale into the left scale. An undefined
+ * value in the right scale falls back to the left scale value.
+ *
+ * @param a The left scale.
+ * @param b The right scale.
+ *
+ * @returns A scale with merged values.
+ */
 export const mergeScalesLeft = (a: Scale, b: Scale): Scale => {
   const result = []
 
@@ -168,6 +258,13 @@ export const mergeScalesLeft = (a: Scale, b: Scale): Scale => {
   return result
 }
 
-// Merge scale values from the left scale into the right scale. An undefined
-// value in the left scale falls back to the right scale value.
+/**
+ * Merges scale values from the left scale into the right scale. An undefined
+ * value in the left scale falls back to the right scale value.
+ *
+ * @param a The left scale.
+ * @param b The right scale.
+ *
+ * @returns A scale with merged values.
+ */
 export const mergeScalesRight = (a: Scale, b: Scale) => mergeScalesLeft(b, a)

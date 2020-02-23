@@ -1,20 +1,52 @@
-type ScalePropElement = string | number
-type ScaleProp = ScalePropElement | ScalePropElement[]
-type ThemeScale = Record<any, ScalePropElement[]>
+import { Theme as StyledSystemTheme } from 'styled-system'
+
+import 'regenerator-runtime/runtime'
 
 type Props = Record<any, any>
 
-interface Theme {
-  breakpoints: string[]
+/** The most basic value of a styled-system-scale prop. */
+type ScalePropElement = string | number | undefined
+
+/** A value of a styled-system-scale prop. */
+type ScaleProp = ScalePropElement | ScalePropElement[]
+
+/** Theme values for a styled-system-scale prop */
+type ScaleTheme = Record<any, ScalePropElement[]>
+
+export interface Theme extends StyledSystemTheme {
+  breakpoints?: string[]
   [key: string]: unknown
 }
 
-interface ScaleConfig {
+/**
+ * Configuration to create a scale prop.
+ */
+export interface ScaleConfig {
+  /** Prop name to assign scale values to the underlying component. */
   systemProp: string
+  /** Name of the scale in the theme. Defaults to "${`systemProp`}Scales". */
   scale?: string
-  defaultScale?: ThemeScale
+  /** Default scale to use if the theme does not have the scale. */
+  defaultScale?: ScaleTheme
 }
 
+/**
+ * Collection of scale configuration objects. The key of each configuration
+ * determines the prop name the intercept.
+ *
+ * For example, a key of `marginScale` will tell `styled-system-scale` to treat
+ * the `marginScale` prop as a scale prop.
+ *
+ * @example
+ * The following example creates a parser for a `marginScale` prop.
+ * {
+ *   marginScale: {
+ *     systemProp: 'margin',
+ *     scale: 'space',
+ *     defaultScale: [0, 2, 4, 8, 16]
+ *   }
+ * }
+ */
 export type ScaleConfigs = Record<any, ScaleConfig>
 
 const DEFAULT_BREAKPOINTS = ['40rem', '52rem', '64rem']
@@ -48,7 +80,7 @@ const negate = (v: ScalePropElement) => (typeof v === 'number' ? -v : '-' + v)
 const parseProp = (prop: ScaleProp, theme: Theme, config: ScaleConfig) => {
   const scaleName = config.scale || `${config.systemProp}Scales`
   const scale =
-    (theme[scaleName] as ThemeScale | undefined) || config.defaultScale
+    (theme[scaleName] as ScaleTheme | undefined) || config.defaultScale
   if (!scale) return prop
 
   if (Array.isArray(prop)) {
@@ -73,11 +105,23 @@ const parseProp = (prop: ScaleProp, theme: Theme, config: ScaleConfig) => {
   return isNeg ? scale[s].map(negate) : scale[s]
 }
 
+/**
+ * Parses the props of a Component and transforms their values if configured to
+ * be a scale prop.
+ */
 export interface Parser {
   (props: Props): Props
   configs: ScaleConfigs
 }
 
+/**
+ * Creates a Parser using the provided scale prop configurations.
+ *
+ * @param configs Collection of scale configuration objects. The key of each
+ * configuration determines the prop name the intercept.
+ *
+ * @returns A prop Parser to pass to `interceptScales`.
+ */
 export const scales = (configs: ScaleConfigs) => {
   const parse: Parser = props => {
     const propKeys = Object.keys(props)
@@ -105,6 +149,13 @@ export const scales = (configs: ScaleConfigs) => {
   return parse
 }
 
+/**
+ * Combines multiple Parsers into a single Parser.
+ *
+ * @param parsers Parsers to combine.
+ *
+ * @returns A Parser with the configs of all provided Parsers.
+ */
 export const composeScales = (...parsers: Parser[]) => {
   const configs = {}
 
@@ -116,6 +167,22 @@ export const composeScales = (...parsers: Parser[]) => {
 
 type StyledSystemParser = (props: Props) => Props
 
-export const interceptScales = (scaleParser: Parser) => (
-  systemParser: StyledSystemParser,
-) => (props: Props) => systemParser(scaleParser(props))
+/**
+ * Intercepts a Component's props and transforms their values using the
+ * provided Parser.
+ *
+ * The functionality of the interceptor is similar to the concept of
+ * middleware.
+ *
+ * @example
+ * const scales = composeScales(typographyScales, spaceScales)
+ * const interceptor = interceptScales(scales)
+ * const Comp = styled('div')(interceptor(compose(typography, space)))
+ *
+ * @param parser Parser used when intercepting props.
+ *
+ * @returns A function that accepts a `styled-system` parser.
+ */
+export const interceptScales = (parser: Parser) => (
+  styledSystemParser: StyledSystemParser,
+) => (props: Props) => styledSystemParser(parser(props))
