@@ -10,8 +10,14 @@ export * from './presets/space'
 export * from './presets/typography'
 
 export interface ScalesTheme extends Theme {
-  spaceScales?: Record<any, CSS.MarginProperty<number | string>[]>
-  fontSizeScales?: Record<any, CSS.FontSizeProperty<number>[]>
+  spaceScales?: Record<
+    any,
+    (string | number | CSS.MarginProperty<number | string>)[]
+  >
+  fontSizeScales?: Record<
+    any,
+    (string | number | CSS.FontSizeProperty<number>)[]
+  >
 }
 
 export type RequiredScalesTheme = Required<ScalesTheme>
