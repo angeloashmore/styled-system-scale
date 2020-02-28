@@ -48,4 +48,17 @@ import { gridScales } from 'styled-system-scale'
 | `gridColumnGapScale` | `gridColumnGap`    | `spaceScales` |
 | `gridRowGapScale`    | `gridRowGap`       | `spaceScales` |
 
+## Position
+
+```js
+import { positionScales } from 'styled-system-scale'
+```
+
+| Prop          | Styled System Prop | Theme Field   |
+| ------------- | ------------------ | ------------- |
+| `topScale`    | `top`              | `spaceScales` |
+| `rightScale`  | `right`            | `spaceScales` |
+| `bottomScale` | `bottom`           | `spaceScales` |
+| `leftScale`   | `left`             | `spaceScales` |
+
 [styled-system-reference-table]: https://styled-system.com/table

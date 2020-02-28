@@ -13,7 +13,7 @@ Working with scales for values such as spacing and font sizes can ease
 development and promote consistent usage. Styled System supports defining scales
 in the theme like the following:
 
-```js
+```javascript
 // theme.js
 
 export default {
@@ -33,12 +33,12 @@ props will use those values when defining padding and margins.
 To clean up the theme, we can use the `linearScale` Styled System Scale helper
 to build the scale.
 
-```js
+```javascript
 // theme.js
 import { linearScale } from 'styled-system-scale'
 
 export default {
-  space: linearScale('0rem', '5rem', { ratio: 0.5 }),
+  space: linearScale('0rem', '5rem', { difference: 0.5 }),
 }
 ```
 
@@ -47,11 +47,11 @@ that you can provide the start and end values with units.
 
 The same strategy can be used to define font sizes in your theme.
 
-```js
+```javascript
 // theme.js
 
 export default {
-  fontSizes: linearScale('0.75rem', '6rem', { ratio: 0.25 }),
+  fontSizes: linearScale('0.75rem', '6rem', { difference: 0.25 }),
 }
 ```
 
@@ -63,18 +63,18 @@ System provides an easy way to define responsive values using arrays.
 
 In the following theme, three breakpoints and spacing values are defined.
 
-```js
+```javascript
 // theme.js
 
 export default {
   breakpoints: linearScale('40rem', '64rem', { count: 3 })
-  space: linearScale('0rem', '5rem', { ratio: 0.5 }),
+  space: linearScale('0rem', '5rem', { difference: 0.5 }),
 }
 ```
 
 Using the values responsively looks like the following.
 
-```js
+```jsx
 <Box
   p={[
     1, // 0.5rem below the smallest breakpoint (all viewports)
@@ -89,12 +89,12 @@ Using the `[1, 4, 8, 12]` padding value is likely to be used elsewhere in your
 app. Rather than manually keeping these values in sync, Styled System Scale
 provides a way to define these responsive values in your theme.
 
-```js
+```javascript
 // theme.js
 
 export default {
   breakpoints: linearScale('40rem', '64rem', { count: 3 })
-  space: linearScale('0rem', '5rem', { ratio: 0.5 }),
+  space: linearScale('0rem', '5rem', { difference: 0.5 }),
   spaceScales: {
     // The following could also be written using the linearScale helper.
     base: [1, 4, 8, 12],
@@ -115,22 +115,16 @@ will update all components using the scale.
 Your Styled System component will need to be updated to add the `pScale` prop,
 and any other scale props needed, to your component.
 
-```js
+```javascript
 // Before, without styled-system-scale
 
 import styled from 'styled-components'
 import { space, typography, color, compose } from 'styled-system'
 
-const Box = styled.div(
-  compose(
-    space,
-    typography,
-    color,
-  ),
-)
+const Box = styled.div(compose(space, typography, color))
 ```
 
-```js
+```javascript
 // After, with styled-system-scale
 
 import { space, typography, color, compose } from 'styled-system'
@@ -144,13 +138,7 @@ import {
 const scales = composeScales(spaceScales, typographyScales)
 
 const Box = styled.div(
-  interceptScales(scales)(
-    compose(
-      space,
-      typography,
-      color,
-    ),
-  ),
+  interceptScales(scales)(compose(space, typography, color)),
 )
 ```
 
@@ -167,7 +155,7 @@ Yes, doubly responsive.
 Style System Scale allows you to change the scale used for different
 breakpoints. The syntax matches Styled System's responsive arrays.
 
-```js
+```jsx
 <Box
   pScale={[
     'base', // padding-bottom: theme.spaceScales.base[0]
@@ -190,7 +178,7 @@ scale starting at the third breakpoint, the font size for that breakpoint will
 match all other components using the `large` responsive scale regardless of the
 responsiveness of their scale props.
 
-```js
+```jsx
 // At the base viewport, the first Box component will have a smaller font size than the second
 
 // At the first breakpoint, both Box components will have the same font sizes.

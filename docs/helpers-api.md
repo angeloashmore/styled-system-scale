@@ -3,18 +3,18 @@
 Writing scales for your theme manually is ugly and time consuming. Why not
 automate it?
 
-```js
+```javascript
 import { linearScale } from 'styled-system-scale'
 
 const theme = {
   breakpoints: linearScale('40rem', '64rem', { count: 3 }),
-  space: linearScale('0rem', '10rem', { ratio: 0.25 }),
+  space: linearScale('0rem', '10rem', { difference: 0.25 }),
   spaceScales: {
     small: linearScale(0, 3),
     base: linearScale(2, 5),
     large: linearScale(4, 7),
   },
-  fontSizes: linearScale('0rem', '10rem', { ratio: 0.25 }),
+  fontSizes: linearScale('0rem', '10rem', { difference: 0.25 }),
   fontSizeScales: {
     small: linearScale(3, 3),
     base: linearScale(4, 7),
@@ -52,11 +52,11 @@ Note: This helper is built using the lower-level `scale` and `linearScaleGen`
 helpers. If the `linearScale` helper does not fit your needs, a combination of
 `scale` and `linearScaleGen` or `modularScaleGen` might be a better fit.
 
-```js
+```javascript
 import { linearScale } from 'styled-system-scale'
 
 export const theme = {
-  space: linearScale('0rem', '10rem', { ratio: 0.25 }),
+  space: linearScale('0rem', '10rem', { difference: 0.25 }),
   spaceScales: {
     base: linearScale(4, 8),
   },
@@ -66,7 +66,7 @@ export const theme = {
 `linearScale` takes the following arguments:
 
 ```sh
-linearScale(min, max, opts = { count, ratio, precision, unit, min, max, transform })
+linearScale(min, max, opts = { count, difference, precision, unit, min, max, transform })
 ```
 
 - `min`: The starting value of the scale. This can include the unit. E.g. `1` or
@@ -75,10 +75,10 @@ linearScale(min, max, opts = { count, ratio, precision, unit, min, max, transfor
   `10rem`.
 - `opts`: Options to adjust the scale. These values are passed to the `scale`
   helper.
-  - `count`: The number of elements in the scale. If `count` is defined, `ratio`
-    cannot be defined.
-  - `ratio`: The amount between values in the scale. If `ratio` is defiend,
-    `count` cannot be defined.
+  - `count`: The number of elements in the scale. If `count` is defined,
+    `difference` cannot be defined.
+  - `difference`: The amount between values in the scale. If `difference` is
+    defiend, `count` cannot be defined.
   - `precision`: Number precision of the scale values. For example, a precision
     of `10` would allow values of `1.2` while a precision of `100` would allow
     `1.15`.
@@ -94,7 +94,7 @@ linearScale(min, max, opts = { count, ratio, precision, unit, min, max, transfor
 Returns an array of values corresponding to a scale. This can be used to create
 scales in your theme.
 
-```js
+```javascript
 import { scale, modularScaleGen } from 'styled-system-scale'
 
 export const theme = {
@@ -123,7 +123,7 @@ scale(count = 0, gen = linearScaleGen(), opts = { min, max, transform })
 
 A generator function that returns values on a modular scale.
 
-```js
+```javascript
 import { modularScaleGen } from 'styled-system-scale'
 
 scale(5, modularScaleGen(0, 2))
@@ -147,7 +147,7 @@ modularScaleGen(initial = 0, ratio = 2, precision = 10)
 
 A generator function that returns values on a linear scale.
 
-```js
+```javascript
 import { linearScaleGen } from 'styled-system-scale'
 
 scale(5, linearScaleGen(0, 0.5))
@@ -157,12 +157,12 @@ scale(5, linearScaleGen(0, 0.5))
 `linearScaleGen` takes the following arguments:
 
 ```sh
-linearScaleGen(initial = 0, ratio = 1, precision = 10)
+linearScaleGen(initial = 0, difference = 1, precision = 10)
 ```
 
 - `initial`: Starting index for the scale.
-- `ratio`: Ratio used to increment the scale. Note that the ratio is applied to
-  the value index, not the previous value.
+- `difference`: Ratio used to increment the scale. Note that the difference is
+  applied to the value index, not the previous value.
 - `precision`: Number precision of the scale values. For example, a precision of
   `10` would allow values of `1.2` while a precision of `100` would allow
   `1.15`.
@@ -172,7 +172,7 @@ linearScaleGen(initial = 0, ratio = 1, precision = 10)
 Returns a ratio to be used with `linearScaleGen` if two values on the scale are
 known.
 
-```js
+```javascript
 import { linearRatio, linearScaleGen } from 'styled-system-scale'
 
 const ratio = linearRatio(4, 8)
@@ -196,7 +196,7 @@ linearRatio(min, max, steps = 1)
 
 Returns scale with negative values.
 
-```js
+```javascript
 import { negateScale } from 'styled-system-scale'
 
 negateScale(['1rem', '-2rem', '4rem'])
@@ -215,7 +215,7 @@ negateScale(scale)
 
 Returns a new scale by adding pairs from two scales.
 
-```js
+```javascript
 import { addScales } from 'styled-system-scale'
 
 addScales(['1rem', '2rem', '3rem'], [null, '3rem'])
@@ -235,7 +235,7 @@ addScales(a, b)
 
 Returns a new scale by subtracting pairs from two scales.
 
-```js
+```javascript
 import { subtractScales } from 'styled-system-scale'
 
 subtractScales(['1rem', '2rem', '3rem'], [null, '3rem'])
@@ -257,7 +257,7 @@ Returns a new scale by merging scale values from two scales. Both left and right
 directional merging functions are available. Undefined values in the non-base
 scale are skipped.
 
-```js
+```javascript
 import { mergeScalesLeft, mergeScalesRight } from 'styled-system-scale'
 
 mergeScalesLeft([0, 2, 4], [1, null, undefined])

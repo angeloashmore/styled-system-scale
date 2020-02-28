@@ -12,12 +12,12 @@ Styled System understands.
 In the following example, the theme defines breakpoints, font sizes, and a
 responsive font size scale named `large`.
 
-```js
+```javascript
 // theme.js
 
 export default {
   breakpoints: linearScale('40rem', '64rem', { count: 3 })
-  fontSizes: linearScale('0.75rem', '6rem', { ratio: 0.25 }),
+  fontSizes: linearScale('0.75rem', '6rem', { difference: 0.25 }),
   fontSizeScales: {
     large: linearScale(5, 20, { count: 4 }),
   },
@@ -26,7 +26,7 @@ export default {
 
 The following two examples provide equivalent font sizes.
 
-```js
+```javascript
 <Box fontSizeScale="large" />
 <Box fontSize={[5, 10, 15, 20]} />
 ```
@@ -34,7 +34,7 @@ The following two examples provide equivalent font sizes.
 Styled System Scale sees the `fontSizeScale` prop and transforms it into the
 `fontSize` prop seen above.
 
-```js
+```javascript
 // Incoming props for Box:
 props = { fontSizeScale: 'large' }
 

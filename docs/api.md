@@ -10,7 +10,7 @@ function. Each key in the configuration object can define the following:
 - `systemProp`: the Styled System prop to use in the returned props object
 - `scale`: a string referencing a key in the `theme` object
 
-```js
+```javascript
 import styled from 'styled-components'
 import { typography } from 'styled-system'
 import { scales, interceptScales } from 'styled-system-scale'
@@ -40,7 +40,7 @@ together into one.
 Note that `composeScales` and Styled System's `compose` is not the same as
 `compose` from functional programming libraries such as Lodash and Ramda.
 
-```js
+```javascript
 import styled from 'styled-components'
 import { compose, space, typography } from 'styled-system'
 import {
@@ -53,12 +53,7 @@ import {
 const scales = composeScales(spaceScales, typographyScales)
 
 export const Box = styled.div(
-  interceptScales(scales)(
-    compose(
-      space,
-      typography,
-    ),
-  ),
+  interceptScales(scales)(compose(space, typography)),
 )
 ```
 

@@ -3,8 +3,8 @@
 Responsive, theme-based scale props for automatically applying scale values to
 [Styled System][styled-system].
 
-[![npm version](https://flat.badgen.net/npm/v/styled-system-scale)](https://www.npmjs.com/package/styled-system-scale)
-[![Build Status](https://flat.badgen.net/travis/angeloashmore/styled-system-scale)](https://travis-ci.com/angeloashmore/styled-system-scale)
+[![npm version](https://img.shields.io/npm/v/styled-system-scale?style=flat-square)](https://www.npmjs.com/package/styled-system-scale)
+[![Build Status](https://img.shields.io/github/workflow/status/angeloashmore/styled-system-scale/Test?style=flat-square)](https://github.com/angeloashmore/styled-system-scale/actions?query=workflow%3ATest)
 
 ```sh
 npm i styled-system-scale
@@ -12,7 +12,7 @@ npm i styled-system-scale
 
 # Usage
 
-```js
+```javascript
 // Example uses styled-components, but styled-system-scale works with anything styled-system supports, including emotion.
 import styled from 'styled-components'
 import { space, typography, compose } from 'styled-system'
@@ -25,29 +25,22 @@ import {
 
 const scales = composeScales(spaceScales, typographyScales)
 
-const Box = styled.div(
-  interceptScales(scales)(
-    compose(
-      space,
-      typography,
-    ),
-  ),
-)
+const Box = styled.div(interceptScales(scales)(compose(space, typography)))
 ```
 
 Styled System Scale requires providing "scales" for each scale prop. For
 example, the following theme sets up space and font size scales.
 
-```js
+```javascript
 const theme = {
   breakpoints: linearScale('40rem', '64rem', { count: 3 }),
-  space: linearScale('0rem', '10rem', { ratio: 0.25 }),
+  space: linearScale('0rem', '10rem', { difference: 0.25 }),
   spaceScales: {
     small: linearScale(0, 3),
     base: linearScale(2, 5),
     large: linearScale(4, 7),
   },
-  fontSizes: linearScale('0rem', '10rem', { ratio: 0.25 }),
+  fontSizes: linearScale('0rem', '10rem', { difference: 0.25 }),
   fontSizeScales: {
     small: linearScale(3, 4),
     base: linearScale(4, 7),
