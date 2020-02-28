@@ -9,11 +9,11 @@ import {
   subtractScales,
   mergeScalesLeft,
   mergeScalesRight,
-} from './helpers'
+} from '../src/helpers'
 
 describe('scale', () => {
   test('returns an empty scale with default options', () => {
-    const result = scale()
+    const result = scale(0)
     expect(result).toEqual([])
   })
 
@@ -112,12 +112,12 @@ describe('linearScale', () => {
   })
 
   test('allows setting a ratio', () => {
-    const result = linearScale(4, 8, { ratio: 2 })
+    const result = linearScale(4, 8, { difference: 2 })
     expect(result).toEqual([4, 6, 8])
   })
 
   test('throws if count and ratio are provided', () => {
-    expect(() => linearScale(4, 8, { count: 4, ratio: 2 })).toThrow(
+    expect(() => linearScale(4, 8, { count: 4, difference: 2 })).toThrow(
       /count and ratio/i,
     )
   })

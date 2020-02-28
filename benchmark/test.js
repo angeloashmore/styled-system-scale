@@ -1,7 +1,7 @@
 const Benchmark = require('benchmark')
 
 const published = require('styled-system-scale')
-const master = require('../dist/index.cjs')
+const master = require('../dist')
 
 const theme = {
   breakpoints: ['32em', '48em', '64em'],

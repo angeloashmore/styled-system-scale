@@ -5,6 +5,6 @@
   },
   "dependencies": {
     "benchmark": "^2.1.4",
-    "styled-system-scale": "0.4.1"
+    "styled-system-scale": "0.6.1"
   }
 }
