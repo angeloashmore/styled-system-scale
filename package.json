@@ -1,6 +1,6 @@
 {
   "name": "styled-system-scale",
-  "version": "0.7.0-next.0",
+  "version": "0.7.1",
   "description": "Assign scales to styled-system props",
   "sideEffects": false,
   "main": "dist/index.js",

@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.1](https://github.com/angeloashmore/styled-system-scale/compare/v0.6.1...v0.7.1) (2020-02-28)
+
+
+### Features
+
+* convert project to TypeScript ([#8](https://github.com/angeloashmore/styled-system-scale/issues/8)) ([de45f41](https://github.com/angeloashmore/styled-system-scale/commit/de45f4100dcd5c0ca563ed83e294941490d2c5e4))
+
+
+### Bug Fixes
+
+* update dependencies ([265b229](https://github.com/angeloashmore/styled-system-scale/commit/265b229353734dcd53e9751aaf8591e029bcb734))
+
 ### [0.6.1](https://github.com/angeloashmore/styled-system-scale/compare/v0.6.0...v0.6.1) (2019-09-19)
 
 
